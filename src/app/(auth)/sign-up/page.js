@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React from "react";
 import Logo from "/public/assets/img/logo.svg";
+import Link from "next/link";
 
 function Page() {
   return (
     <div>
-      <div class="flex md:justify-end justify-center md:bg-[url('./img/bg-image.png')] w-full bg-contain bg-no-repeat overflow-hidden">
+      <div class="flex md:justify-end justify-center md:bg-[url('/assets/img/bg-image.png')] w-full bg-contain bg-no-repeat overflow-hidden">
         {/* <!-- right side div: white div --> */}
         <div class="flex flex-col bg-white md:w-1/3 w-full h-screen rounded-l-xl">
           <div class="mt-8 pl-10">
@@ -57,7 +58,9 @@ function Page() {
 
             <div class="flex gap-3 mt-8">
               <p>Already have a account</p>
-              <a class="text-red-500 hover:cursor-pointer">Log in ?</a>
+              <Link href={"/login"} class="text-red-500 hover:cursor-pointer">
+                Log in ?
+              </Link>
             </div>
           </div>
         </div>
