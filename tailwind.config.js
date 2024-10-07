@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        // "bgCurly": "url('/public/assets/img/bg.png')",
+      },
     },
   },
   plugins: [],
