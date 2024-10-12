@@ -1,6 +1,6 @@
 "use client";
-import React, {useState} from "react";
-import Arrow from "../../public/assets/arrow.svg";
+import React, {useEffect, useState} from "react";
+import Arrow from "../../../public/assets/arrow.svg";
 import Image from "next/image";
 function ToolBar() {
   const fonts = [
@@ -23,13 +23,20 @@ function ToolBar() {
   ];
 
   const [fontState, setFont] = useState("Sometype");
-  const [toggle, setToggle] = useState(true);
+
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setToggle(window.innerWidth >= 768);
+    }
+  }, []);
   return (
     <>
       <div
-        className={`absolute bottom-0 transition-all ease-linear ${
-          toggle ? "right-0" : "-right-[15vw]"
-        } text-fontPrimary bg-navBarBGPrimary px-5 py-3 border-[3px] border-r-0 border-b-0 h-[70vh] bor border-borderColor rounded-tl-3xl w-[15vw] `}
+        className={`absolute overflow-x-visible  md:bottom-0  transition-all ease-linear ${
+          toggle ? "right-0" : "md:-right-[15vw] -right-[90%] "
+        } text-fontPrimary bg-navBarBGPrimary px-5 py-3 border-[3px] border-r-0 border-b-0  h-full md:h-[70vh] bor border-borderColor rounded-tl-3xl w-[90%] md:w-[15vw]  `}
       >
         <div
           onClick={() => setToggle(!toggle)}

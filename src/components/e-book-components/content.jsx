@@ -2,7 +2,7 @@ import React from "react";
 
 function Content() {
   return (
-    <div className=" px-48  w-[90%] h-[84vh]  py-5    overflow-y-scroll scroll-smooth no-scrollbar ">
+    <div className=" md:px-48 p-5 md:mb-0 mb-5  w-full md:w-[90%] h-[84vh]  py-5 overflow-y-scroll scroll-smooth no-scrollbar ">
       Lorem ipsum odor amet, consectetuer adipiscing elit. Luctus semper
       inceptos habitasse sed ipsum nostra class. Phasellus justo auctor
       phasellus aptent, aptent fusce phasellus commodo? Molestie ligula congue
