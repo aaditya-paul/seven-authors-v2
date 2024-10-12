@@ -8,8 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        navBarBGPrimary: "var(--navBarBGPrimary)",
+        fontColorActive: "var(--fontColorActive)",
+        bgColor: "var(--bgColor)",
+        borderColor: "var(--borderColor)",
+        fontPrimary: "var(--font-primary)",
       },
       backgroundImage: {
         // "bgCurly": "url('/public/assets/img/bg.png')",

@@ -1,0 +1,30 @@
+/* themes.css */
+:root {
+    --primary-color: #222;
+    --secondary-color: #555;
+    --navBarBGPrimary: #222222;
+    --fontColorActive: #E12F3B;
+    --bgColor: #292929;
+    --borderColor: #3E3D3D;
+    --font-primary: #fff
+}
+
+.theme-light {
+    --primary-color: #3490dc;
+    --secondary-color: #ffed4a;
+}
+
+.theme-dark {
+    --primary-color: #222;
+    --secondary-color: #555;
+    --navBarBGPrimary: #222222;
+    --fontColorActive: #E12F3B;
+    --bgColor: #292929;
+    --borderColor: #3E3D3D;
+    --font-primary: #fff
+}
+
+.theme-colorful {
+    --primary-color: #e3342f;
+    --secondary-color: #38c172;
+}
