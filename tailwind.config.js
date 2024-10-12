@@ -17,6 +17,12 @@ module.exports = {
       backgroundImage: {
         // "bgCurly": "url('/public/assets/img/bg.png')",
       },
+      fontFamily: {
+        roboto: ["var(--font-roboto)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        sometype: ["var(--font-sometype)", "sans-serif"],
+        irish: ["var(--font-irish)", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -6,18 +6,20 @@ function ToolBar() {
   const fonts = [
     {
       name: "Roboto",
+      font: "font-roboto",
     },
     {
       name: "Sometype",
+      font: "font-sometype",
     },
     {
-      name: "Irish",
+      name: "Irish Grover",
+      font: "font-irish",
     },
-    {
-      name: "Gorver",
-    },
+
     {
       name: "Inter",
+      font: "font-inter",
     },
     {},
   ];
@@ -54,7 +56,7 @@ function ToolBar() {
                     setFont(font.name);
                   }}
                   key={index}
-                  className={` transition-all ease-linear ${
+                  className={` transition-all ease-linear ${font.font} ${
                     font.name === fontState
                       ? "text-fontColorActive bg-bgColor drop-shadow-sm "
                       : "bg-transparent"
