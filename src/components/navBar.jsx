@@ -36,7 +36,7 @@ function NavBar() {
 
   return (
     <div className=" flex justify-center w-full">
-      <div class="flex items-center bg-[#393737]/80 md:w-[120ch] w-full p-[16px] rounded-[16px] justify-between fixed top-[24px] backdrop-blur-md">
+      <div class="z-50 flex items-center bg-[#393737]/80 md:w-[120ch] w-full p-[16px] rounded-[16px] justify-between fixed top-[24px] backdrop-blur-md">
         <div class="flex">
           <div className=" ">
             <Image src={Logo} alt="logo"></Image>
