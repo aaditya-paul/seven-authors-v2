@@ -46,7 +46,7 @@ function Page() {
   return (
     <NavBar>
       <div className=" overflow-hidden">
-        <div className=" w-full h-[100vh] bg-red-300 bg-[url('../../public/assets/heroHome.png')] bg-no-repeat bg-cover">
+        <div className=" w-full h-[100vh] bg-red-300 bg-[url('../../public/assets/heroHome.png')] bg-center bg-no-repeat bg-cover">
           <div className=" flex  h-full ">
             <div className="w-fit h-fit  md:w-[30vw]  lg:flex justify-between m-5 mt-[90%] lg:mt-48 lg:mx-40 lg:px-10 px-5  lg:py-12 py-5   flex flex-col gap-4 p-8 md:p-16 bg-[#292929] rounded-lg text-white italic">
               <p className=" text-2xl">
