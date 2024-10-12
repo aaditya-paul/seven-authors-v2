@@ -78,6 +78,25 @@ function ToolBar() {
           </div>
         </div>
       </div>
+      <div
+        className={`   w-full md:w-[90%] absolute ${
+          toggle
+            ? "bottom-[0vh]  md:bottom-10 opacity-100"
+            : " bottom-[0vh]  md:bottom-10 md:opacity-0"
+        }  w-full bg-navBarBGPrimary md:bg-transparent pointer-events-none flex self-center items-center justify-center transition-all ease-linear duration-300 delay-75 scroll-smooth `}
+      >
+        <div className=" pointer-events-auto md:bg-white/20 md:px-16 md:backdrop-blur-[2px] py-3 rounded-lg flex gap-4 ">
+          <div className=" cursor-pointer px-4 py-2 bg-[#292929] border-2 border-[#757575] rounded-xl">
+            {"<"}
+          </div>
+          <div className=" cursor-pointer px-4 py-2 bg-[#292929] border-2 border-[#757575] rounded-xl">
+            Page 1
+          </div>
+          <div className="cursor-pointer px-4 py-2 bg-[#292929] border-2 border-[#757575] rounded-xl">
+            {">"}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
