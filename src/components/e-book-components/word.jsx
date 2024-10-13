@@ -61,12 +61,12 @@ export default function Page({}) {
   return (
     <div className="p-6">
       {/* Display the Document */}
-      <div className="mt-6 p-4">
+      <div className="">
         {isLoading ? (
           <div>Loading...</div> // Loading indicator
         ) : (
           <div
-            className={`prose max-w-full p-4 rounded-md h-[60vh] overflow-y-auto ${fontFamily} `}
+            className={`prose max-w-full p-4 rounded-md h-[75vh] overflow-y-auto ${fontFamily} `}
             style={{
               backgroundColor: backgroundColor, // dynamic background color
               fontSize: fontSize, // dynamic font size
