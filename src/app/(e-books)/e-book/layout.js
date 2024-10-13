@@ -27,18 +27,6 @@ const irish = Irish_Grover({
 });
 
 export default function RootLayout({children}) {
-  const mode = useSelector((state) => state.toolBar.mode);
-  // Set body styles dynamically
-  if (mode === "dark") {
-    document.body.style.setProperty("background-color", "#292929", "important");
-    document.body.style.setProperty("color", "#ffffff", "important");
-  } else if (mode === "light") {
-    document.body.style.setProperty("background-color", "#ffffff", "important");
-    document.body.style.setProperty("color", "#000000", "important");
-  } else {
-    document.body.style.setProperty("background-color", "#FAE6B5", "important");
-    document.body.style.setProperty("color", "#000000", "important");
-  }
   return (
     <html
       className={`${roboto.className} ${inter.variable} ${sometype.variable} ${irish.variable}`}

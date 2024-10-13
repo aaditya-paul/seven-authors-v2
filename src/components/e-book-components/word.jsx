@@ -13,12 +13,14 @@ export default function Page({bookId = "id-blyxy6n87uk"}) {
   const [wordContent, setWordContent] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff"); // default white background
   const [fontColor, setFontColor] = useState("#000000"); // default black font color
+  const [isLoading, setIsLoading] = useState(true); // loading state
   const fontFamily = useSelector((state) => state.toolBar.font); // dynamic font family
   const fontSize = useSelector((state) => state.toolBar.fontSize); // dynamic font size
   const mode = useSelector((state) => state.toolBar.mode); // dynamic mode
 
   useEffect(() => {
     const fetchBookData = async () => {
+      setIsLoading(true); // Set loading to true before fetching
       const docRef = doc(db, "books", bookId); // Get reference to the Firestore document
       const docSnap = await getDoc(docRef); // Fetch the document
 
@@ -34,6 +36,7 @@ export default function Page({bookId = "id-blyxy6n87uk"}) {
       } else {
         console.error("No such document!");
       }
+      setIsLoading(false); // Set loading to false after fetching
     };
 
     fetchBookData();
@@ -56,19 +59,23 @@ export default function Page({bookId = "id-blyxy6n87uk"}) {
     <div className="p-6">
       {/* Display the Document */}
       <div className="mt-6 p-4">
-        <div
-          className={`prose max-w-full p-4 rounded-md h-[60vh] overflow-y-auto ${fontFamily} `}
-          style={{
-            backgroundColor: backgroundColor, // dynamic background color
-            fontSize: fontSize, // dynamic font size
-            color: fontColor, // dynamic font color
-          }}
-        >
+        {isLoading ? (
+          <div>Loading...</div> // Loading indicator
+        ) : (
           <div
-            className="word-content"
-            dangerouslySetInnerHTML={{__html: wordContent}}
-          />
-        </div>
+            className={`prose max-w-full p-4 rounded-md h-[60vh] overflow-y-auto ${fontFamily} `}
+            style={{
+              backgroundColor: backgroundColor, // dynamic background color
+              fontSize: fontSize, // dynamic font size
+              color: fontColor, // dynamic font color
+            }}
+          >
+            <div
+              className="word-content"
+              dangerouslySetInnerHTML={{__html: wordContent}}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

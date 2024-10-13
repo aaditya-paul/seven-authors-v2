@@ -1,6 +1,6 @@
 "use client";
 import {doc, getDoc} from "@firebase/firestore";
-import React, {useEffect} from "react";
+import React, {useEffect, Suspense} from "react";
 import {db} from "../../../../firebase";
 import {useRouter, useSearchParams} from "next/navigation";
 
@@ -33,4 +33,10 @@ const LoadingScreen = () => {
   );
 };
 
-export default LoadingScreen;
+const AuthRedirectPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <LoadingScreen />
+  </Suspense>
+);
+
+export default AuthRedirectPage;
