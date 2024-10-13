@@ -9,7 +9,7 @@ import Audio from "/public/assets/audio.js";
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
-import {onAuthStateChanged} from "@firebase/auth";
+import {onAuthStateChanged, signOut} from "@firebase/auth";
 import {auth, db} from "../../../firebase";
 import {useDispatch, useSelector} from "react-redux";
 import {setUID, setUserRedux} from "@/lib/redux/features/admin";
@@ -66,6 +66,15 @@ function NavBar({children}) {
       }
     });
   }, [router, dispatch]);
+
+  const isAdmin = useSelector((state) => state.AdminRedux.user.admin);
+  // console.log(isAdmin);
+
+  useEffect(() => {
+    if (isAdmin === false) {
+      router.push("/");
+    }
+  }, [isAdmin, router]);
 
   useEffect(() => {
     setToggle(false);
@@ -156,7 +165,16 @@ function NavBar({children}) {
               <div className=" text-red-300 ">
                 <Home className={`stroke-white `} />
               </div>
-              <div className={`text-white`}>LogOut</div>
+              <div
+                onClick={() => {
+                  signOut(auth).then(() => {
+                    router.replace("/");
+                  });
+                }}
+                className={`text-white`}
+              >
+                LogOut
+              </div>
             </div>
           </div>
         </div>

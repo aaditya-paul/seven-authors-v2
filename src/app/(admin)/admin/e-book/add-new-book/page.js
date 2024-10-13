@@ -18,7 +18,7 @@ const BookForm = () => {
   const [book, setBook] = useState(null);
   const [downloadURL, setDownloadURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [price, setPrice] = useState("");
   const handleFileUpload = async (file, id) => {
     if (!file) return;
 
@@ -52,6 +52,7 @@ const BookForm = () => {
       copyright,
       coverImage,
       book,
+      price,
     });
     // Logic to handle form submission, e.g., sending data to the server
     if (
@@ -60,7 +61,9 @@ const BookForm = () => {
       !irn ||
       !genre ||
       !creationDate ||
-      !coverImage
+      !coverImage ||
+      !book ||
+      !price
     ) {
       alert("Please fill all the fields");
       setIsLoading(false);
@@ -83,6 +86,8 @@ const BookForm = () => {
         creationDate,
         coverImage: await handleFileUpload(coverImage, uniqueId),
         book: await handleFileUpload(book, uniqueId),
+        price,
+        slug: uniqueId,
       })
         .then(() => {
           alert("Book added successfully");
@@ -153,6 +158,16 @@ const BookForm = () => {
               type="date"
               value={creationDate}
               onChange={(e) => setCreationDate(e.target.value)}
+              className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
+              required
+            />
+          </div>
+          <div className=" flex gap-10 items-center justify-between outline-none">
+            <label className="block">Enter the price</label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
               required
             />

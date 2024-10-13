@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {signInWithEmailAndPassword} from "@firebase/auth";
 import {auth} from "../../../../firebase";
+import {useRouter} from "next/navigation";
 function Page() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  const router = useRouter();
   const HandleClick = () => {
     if (email === "" || password === "") {
       alert("Please enter email and password");
@@ -17,6 +18,7 @@ function Page() {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log("User Logged in");
+          router.push(`/auth-redirect?uid=${auth.currentUser.uid}`);
         })
         .catch((error) => {
           alert(error.message);

@@ -6,9 +6,12 @@ import {doc, getDoc} from "@firebase/firestore"; // Import Firestore methods
 
 import mammoth from "mammoth";
 import {db} from "../../../firebase";
+import {usePathname} from "next/navigation";
 
-export default function Page({bookId = "id-blyxy6n87uk"}) {
+export default function Page({}) {
   // Accept bookId as a prop
+  const bookId = usePathname().slice(15);
+  // console.log(pathName.slice(15));
 
   const [wordContent, setWordContent] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff"); // default white background

@@ -9,18 +9,27 @@ const LoadingScreen = () => {
   const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
-      console.log(q.get("uid"));
+      const uid = q.get("uid");
+      if (!uid) {
+        console.error("UID is missing");
+        return;
+      }
 
-      await getDoc(doc(db, "users", q.get("uid"))).then((doc) => {
-        if (doc.exists()) {
-          console.log("Document data:", doc.data());
-          if (doc.data().admin) {
+      try {
+        const userDoc = await getDoc(doc(db, "users", uid));
+        if (userDoc.exists()) {
+          console.log("Document data:", userDoc.data());
+          if (userDoc.data().admin) {
             router.push("/admin");
           } else {
             router.push("/e-book");
           }
+        } else {
+          console.error("No such document!");
         }
-      });
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
     };
 
     fetchData();

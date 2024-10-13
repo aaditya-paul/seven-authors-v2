@@ -1,32 +1,21 @@
 "use client";
 
+import {fetchBooks} from "@/utils/fetchBooks";
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // BookRow Component
-const BookRow = ({index, book}) => {
+const BookRow = ({book, index}) => {
   return (
-    <div className="flex justify-evenly px-4 py-1 text-white items-center text-xs">
-      <div className="basis-[10%] flex flex-col w-full">
-        <div>{index + 1}.</div>
-      </div>
-      <div className="basis-[33.33%] flex flex-col w-full">
-        <div>{book.name}</div>
-      </div>
-      <div className="basis-[8.5%] flex flex-col w-full">
-        <div>{book.basePrice}</div>
-      </div>
-      <div className="basis-[8.5%] flex flex-col w-full">
-        <div>{book.createdAt}</div>
-      </div>
-      <div className="basis-[8.5%] flex flex-col w-full">
-        <div>{book.totalSales}</div>
-      </div>
-      <div className="basis-[8.5%] flex flex-col w-full">
-        <div>{book.total}</div>
-      </div>
-      <div className="basis-[12.5%] flex flex-col w-full">
-        <div className="flex gap-4">
+    <tr className="text-white text-xs">
+      <td className="text-left">{index + 1}.</td>
+      <td className="text-left">{book.title}</td>
+      <td className="text-left">{book.price}</td>
+      <td className="">{book.creationDate}</td>
+      <td className="text-left">{book.totalSales}</td>
+      <td className="text-left">{book.total}</td>
+      <td className="text-left">
+        <div className="flex justify-center gap-2">
           <div className="px-4 py-2 border rounded-md cursor-pointer border-blue-500">
             View
           </div>
@@ -34,50 +23,42 @@ const BookRow = ({index, book}) => {
             Edit
           </div>
         </div>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 };
 
 // Main Page Component
 function Page() {
   const router = useRouter();
-  const [books, setBooks] = useState([
-    {
-      name: "Harry Potter",
-      basePrice: 1000,
-      createdAt: "2024-01-01",
-      totalSales: 100,
-      total: 1000,
-    },
-    {
-      name: "The Hobbit",
-      basePrice: 800,
-      createdAt: "2024-01-02",
-      totalSales: 50,
-      total: 800,
-    },
-    // Add more book objects here
-  ]);
-
+  const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const handleAddBook = () => {
-    // Logic to add a new book can be implemented here
-    const newBook = {
-      name: "New Book", // Replace with user input
-      basePrice: 900, // Replace with user input
-      createdAt: new Date().toISOString().split("T")[0],
-      totalSales: 0,
-      total: 900,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchBooks(); // Fetch books data
+        console.log("Fetched data:", data); // Log fetched data
+        setBooks(data);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
-    setBooks([...books, newBook]);
-  };
+
+    fetchData(); // Call the fetch function
+  }, []);
 
   // Filtered Books based on Search Term
   const filteredBooks = books.filter((book) =>
-    book.name.toLowerCase().includes(searchTerm.toLowerCase())
+    book.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (loading) {
+    return <div className="text-white text-xl font-bold">Loading...</div>;
+  }
 
   return (
     <div className="px-5 md:px-12 py-5">
@@ -102,20 +83,24 @@ function Page() {
       </div>
       {/* Board */}
       <div className="bg-navBarBGPrimary h-[70vh] overflow-y-scroll no-scrollbar">
-        {/* Table Headings */}
-        <div className="flex justify-evenly p-4 text-white/50 font-semibold text-xs">
-          <div className="basis-[10%]">Sr. No.</div>
-          <div className="basis-[33.33%]">Name</div>
-          <div className="basis-[8.5%]">Base Price</div>
-          <div className="basis-[8.5%]">Created At</div>
-          <div className="basis-[8.5%]">Total Sales</div>
-          <div className="basis-[8.5%]">Total</div>
-          <div className="basis-[12.5%]">Actions</div>
-        </div>
-        {/* Book Rows */}
-        {filteredBooks.map((book, index) => (
-          <BookRow key={index} index={index} book={book} />
-        ))}
+        <table className="w-full text-left border-collapse p-4 m-4">
+          <thead>
+            <tr className="text-white/50 font-semibold text-xs ">
+              <th className="basis-[10%]">Sr. No.</th>
+              <th className="basis-[33.33%]">Name</th>
+              <th className="basis-[8.5%]">Base Price</th>
+              <th className="basis-[8.5%]">Created At</th>
+              <th className="basis-[8.5%]">Total Sales</th>
+              <th className="basis-[8.5%]">Total</th>
+              {/* <th className="basis-[12.5%]">Actions</th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {books.map((book, index) => (
+              <BookRow key={index} book={book} index={index} />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
