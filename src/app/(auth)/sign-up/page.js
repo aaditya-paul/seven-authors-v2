@@ -1,9 +1,48 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Link from "next/link";
+import {createUserWithEmailAndPassword} from "@firebase/auth";
+import {auth, db} from "../../../../firebase";
+import {doc, setDoc} from "@firebase/firestore";
+import {useRouter} from "next/navigation";
 
 function Page() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const router = useRouter();
+  const HandleClick = () => {
+    if (email === "" || password === "" || name === "") {
+      alert("Please enter email, password and name");
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(async (user) => {
+          await setDoc(
+            doc(db, "users", user.user.uid),
+            {
+              name: name,
+              email: email,
+              uid: user.user.uid,
+              name: name,
+              admin: email === "admin@root.com" ? true : false,
+            },
+            {merge: true}
+          )
+            .then(() => {
+              console.log("User created");
+              router.push(`/auth-redirect?uid=${user.user.uid}`);
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  };
   return (
     <div>
       <div class="flex md:justify-end justify-center md:bg-[url('/assets/img/bg-image.png')] w-full bg-contain bg-no-repeat overflow-hidden">
@@ -34,18 +73,25 @@ function Page() {
               <input
                 class="border-[2px] border-gray-300 px-4 py-2 rounded-md"
                 placeholder="Enter full name"
+                onChange={(e) => setName(e.target.value)}
               />
               <input
                 class="border-[2px] border-gray-300 px-4 py-2 rounded-md"
                 placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 class="border-[2px] border-gray-300 px-4 py-2 rounded-md"
-                placeholder="Enter phone no"
+                placeholder="Enter Password"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div class="mt-8">
-              <button class="bg-red-600 px-10 py-2 text-white font-semibold w-full rounded-md">
+              <button
+                onClick={HandleClick}
+                class="bg-red-600 px-10 py-2 text-white font-semibold w-full rounded-md"
+              >
                 continue
               </button>
             </div>

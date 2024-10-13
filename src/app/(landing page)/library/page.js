@@ -59,12 +59,12 @@ function Page() {
           {/* <!-- newely released  --> */}
 
           {/* <!-- top seller  --> */}
-          <div class="flex bg-[#393737] md:w-[120ch] p-[16px] rounded-[16px] md:py-[32px] md:px-[64px] flex-col gap-[24px] py-[16px] px-[24px] w-full">
+          <div class="flex bg-[#393737] md:w-[120ch] p-[16px] rounded-[16px] md:py-[32px] md:px-[64px] flex-col justify-evenly md:gap-[24px] py-[8px] px-[18px] w-full">
             <p class="text-white md:text-[32px] font-bold text-[24px]">
               Best Seller
             </p>
 
-            <div class="grid grid-cols-2 md:grid-cols-6 gap-[32px] overflow-x-scroll scrollbar-hide">
+            <div class="grid grid-cols-2 md:grid-cols-6 md:gap-[32px] overflow-x-scroll no-scrollbar">
               {BestSeller.map((book, index) => {
                 return (
                   <div
@@ -96,11 +96,11 @@ function Page() {
           </div>
           {/* <!-- newely released  --> */}
 
-          <div class="flex bg-[#393737] md:w-[120ch] p-[16px] rounded-[16px] md:py-[32px] md:px-[64px] flex-col gap-[24px] py-[16px] px-[24px] w-full">
+          <div class="flex bg-[#393737] md:w-[120ch] p-[16px] rounded-[16px] md:py-[32px] md:px-[64px] flex-col justify-evenly md:gap-[24px] py-[16px] px-[24px] w-full">
             <p class="text-white md:text-[32px] font-bold text-[24px]">
               Newly Released
             </p>
-            <div class="grid grid-cols-2 md:grid-cols-6 gap-[32px] overflow-x-scroll scrollbar-hide">
+            <div class="grid grid-cols-2 md:grid-cols-6 md:gap-[32px] overflow-x-scroll no-scrollbar">
               {NewlyReleased.map((book, index) => {
                 return (
                   <div

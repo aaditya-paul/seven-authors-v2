@@ -45,7 +45,7 @@ function Page() {
   ];
   return (
     <NavBar>
-      <div className=" overflow-hidden">
+      <div className=" overflow-hidden bg-no-repeat">
         <div className=" w-full h-[100vh] bg-red-300 bg-[url('../../public/assets/heroHome.png')] bg-center bg-no-repeat bg-cover">
           <div className=" flex  h-full ">
             <div className="w-fit h-fit  md:w-[30vw]  lg:flex justify-between m-5 mt-[90%] lg:mt-48 lg:mx-40 lg:px-10 px-5  lg:py-12 py-5   flex flex-col gap-4 p-8 md:p-16 bg-[#292929] rounded-lg text-white italic">
@@ -73,14 +73,14 @@ function Page() {
           </div>
         </div>
         <div className="bg-[#222222]">
-          <div className="bg-wavyBG p-3 bg-repeat text-white flex flex-col justify-center items-center">
-            <div className="bg-[#222222] lg:flex justify-between lg:mx-40 mt-10 lg:px-10 px-5  gap-10 lg:py-5 py-5  rounded-lg">
+          <div className="bg-wavyBG  p-3  bg-repeat text-white flex flex-col justify-center items-center">
+            <div className="bg-[#222222] w-[80%] lg:flex justify-between lg:mx-40 mt-10 lg:px-10 px-5  gap-10 lg:py-5 py-5  rounded-lg">
               <BookSLider />
             </div>
-            <div className="bg-[#222222] mx-40 mt-10 px-10 py-5 rounded-lg">
+            <div className="bg-[#222222] mx-40 mt-10 px-10 py-5 rounded-lg w-[80%]">
               <h1 className="text-2xl my-4">Frequently asked questions</h1>
               <div className="flex justify-center items-center gap-10">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 ">
                   {faqArray.map((faq, index) => {
                     return (
                       <>

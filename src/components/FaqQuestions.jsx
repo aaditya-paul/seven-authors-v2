@@ -1,17 +1,19 @@
 import React from "react";
-import { useState } from "react";
-const FaqQuestions = ({ ques, index }) => {
+import {useState} from "react";
+const FaqQuestions = ({ques, index}) => {
   const [isquesOpen, setIsquesOpen] = useState(false);
 
-  console.log(index, ques)
+  console.log(index, ques);
 
   return (
     <>
       <div
         key={index}
         className={` ${
-          isquesOpen ? "bg-[#E12F3B]/10 border-red-700" : "bg-white/10 border-gray-500  "
-        } lg:w-[700px] w-[350px] border-2 transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-lg`}
+          isquesOpen
+            ? "bg-[#E12F3B]/10 border-red-700"
+            : "bg-white/10 border-gray-500  "
+        } lg:w-[600px] w-[350px] border-2 transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-lg`}
         onClick={() => {
           setIsquesOpen(!isquesOpen);
         }}

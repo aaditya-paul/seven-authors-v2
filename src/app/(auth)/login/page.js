@@ -1,8 +1,29 @@
+"use client";
+
 import React from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import {signInWithEmailAndPassword} from "@firebase/auth";
+import {auth} from "../../../../firebase";
 function Page() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const HandleClick = () => {
+    if (email === "" || password === "") {
+      alert("Please enter email and password");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log("User Logged in");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  };
+
   return (
     <div class="flex md:justify-end justify-center md:bg-[url('/assets/img/bg-image.png')] bg-contain bg-no-repeat">
       {/* <!-- right side div: white div --> */}
@@ -17,15 +38,20 @@ function Page() {
               <input
                 class="border-[2px] border-gray-300 px-4 py-2 rounded-md w-full focus:outline-red-600"
                 placeholder="Enter email or user name"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 class="border-[2px] border-gray-300 px-4 py-2 rounded-md w-full focus:outline-red-600"
                 placeholder="Enter password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <p class="tag mt-2">Forgot password ?</p>
             <div class="flex w-full">
-              <button class="bg-red-600 px-10 py-2 text-white font-semibold w-full rounded-md hover:bg-red-800">
+              <button
+                onClick={HandleClick}
+                class="bg-red-600 px-10 py-2 text-white font-semibold w-full rounded-md hover:bg-red-800"
+              >
                 Login
               </button>
             </div>

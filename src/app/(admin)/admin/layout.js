@@ -1,6 +1,6 @@
-import NavBar from "@/components/e-book-components/navBar";
 import React from "react";
 import {Roboto, Sometype_Mono, Irish_Grover, Inter} from "next/font/google";
+import NavBar from "@/components/admin-components/navBar";
 
 const roboto = Roboto({
   weight: ["400", "700"], // Choose weights

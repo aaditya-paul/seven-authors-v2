@@ -57,7 +57,7 @@ function Page() {
                   <div
                     key={index}
                     onClick={() => {
-                      router.push("/e-book/book-mark/slug");
+                      router.push("/e-book/e-book/slug");
                     }}
                     class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
                   >
@@ -97,7 +97,7 @@ function Page() {
                   <div
                     key={index}
                     onClick={() => {
-                      router.push("/e-book/book-mark/slug");
+                      router.push("/e-book/e-book/slug");
                     }}
                     class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
                   >
@@ -137,7 +137,7 @@ function Page() {
                   <div
                     key={index}
                     onClick={() => {
-                      router.push("/e-book/book-mark/slug");
+                      router.push("/e-book/e-book/slug");
                     }}
                     class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
                   >

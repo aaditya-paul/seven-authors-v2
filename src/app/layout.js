@@ -1,5 +1,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import {getDoc} from "@firebase/firestore";
+import {onAuthStateChanged} from "@firebase/auth";
+import {auth} from "../../firebase";
+import Providers from "@/lib/redux/provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,7 +27,7 @@ export default function RootLayout({children}) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
