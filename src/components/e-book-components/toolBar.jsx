@@ -2,6 +2,8 @@
 import React, {useEffect, useState} from "react";
 import Arrow from "../../../public/assets/arrow.svg";
 import Image from "next/image";
+import {useDispatch, useSelector} from "react-redux";
+import {setFont, setFontSize, setMode} from "@/lib/redux/features/toolbar";
 function ToolBar() {
   const fonts = [
     {
@@ -24,8 +26,11 @@ function ToolBar() {
     {},
   ];
 
-  const [fontState, setFont] = useState("Sometype");
-
+  // const [fontState, setFont] = useState("Sometype");
+  const dispatch = useDispatch();
+  const fontState = useSelector((state) => state.toolBar.font);
+  var fontSize = useSelector((state) => state.toolBar.fontSize);
+  var mode = useSelector((state) => state.toolBar.mode);
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -53,11 +58,11 @@ function ToolBar() {
               return (
                 <div
                   onClick={() => {
-                    setFont(font.name);
+                    dispatch(setFont(font.font));
                   }}
                   key={index}
                   className={` transition-all ease-linear ${font.font} ${
-                    font.name === fontState
+                    font.font === fontState
                       ? "text-fontColorActive bg-bgColor drop-shadow-sm "
                       : "bg-transparent"
                   } cursor-pointer px-3 py-2 rounded-lg`}
@@ -69,14 +74,60 @@ function ToolBar() {
           </div>
           <div>
             <div>Font Size</div>
-            <div className=" flex gap-5">
-              <div className=" ">+</div>
-              <div>A</div>
-              <div>-</div>
+            <div className=" flex gap-5 items-center">
+              <div
+                onClick={() => {
+                  dispatch(setFontSize((fontSize = fontSize + 4)));
+                }}
+                className=" cursor-pointer"
+              >
+                +
+              </div>
+              <div
+                style={{
+                  fontSize: `${fontSize}px`,
+                }}
+              >
+                A
+              </div>
+              <div
+                className=" cursor-pointer"
+                onClick={() => {
+                  dispatch(setFontSize((fontSize = fontSize - 4)));
+                }}
+              >
+                -
+              </div>
             </div>
           </div>
           <div>
             <div>Mode</div>
+            <div className=" grid grid-rows-2 grid-cols-2 gap-4 my-2">
+              <div
+                onClick={() => {
+                  dispatch(setMode("night"));
+                }}
+                className={` ${
+                  mode === "night" ? "border-4 border-red-500" : "border-none"
+                }  px-3 cursor-pointer py-6 bg-[#FAE6B5] rounded-md`}
+              ></div>
+              <div
+                onClick={() => {
+                  dispatch(setMode("light"));
+                }}
+                className={` ${
+                  mode === "light" ? "border-4 border-red-500" : "border-none"
+                } px-3 cursor-pointer py-6 bg-white rounded-md`}
+              ></div>
+              <div
+                onClick={() => {
+                  dispatch(setMode("dark"));
+                }}
+                className={` ${
+                  mode === "dark" ? "border-4 border-red-500" : "border-none"
+                } px-3 cursor-pointer py-6 bg-[#292929] rounded-md`}
+              ></div>
+            </div>
           </div>
         </div>
       </div>

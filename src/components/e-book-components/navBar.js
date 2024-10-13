@@ -9,6 +9,7 @@ import Audio from "/public/assets/audio.js";
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
+import {getDocs} from "@firebase/firestore";
 function NavBar({children}) {
   const routes = [
     {
@@ -63,6 +64,11 @@ function NavBar({children}) {
   useEffect(() => {
     setToggle(false);
   }, [pathName]);
+
+  // useEffect(()=>{
+
+  // })
+
   return (
     <>
       <div className="">
