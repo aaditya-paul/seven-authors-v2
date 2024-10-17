@@ -9,7 +9,11 @@ import Audio from "/public/assets/audio.js";
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
-import {getDocs} from "@firebase/firestore";
+import {doc, getDoc, getDocs} from "@firebase/firestore";
+import {onAuthStateChanged, signOut} from "@firebase/auth";
+import {auth, db} from "../../../firebase";
+import {useDispatch} from "react-redux";
+import {setUID, setUserRedux} from "@/lib/redux/features/admin";
 function NavBar({children}) {
   const routes = [
     {
@@ -60,14 +64,31 @@ function NavBar({children}) {
 
   const router = useRouter();
   const pathName = usePathname();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setToggle(false);
   }, [pathName]);
 
-  // useEffect(()=>{
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push("/login");
+      } else {
+        // do something
+        dispatch(setUID(user.uid));
+        console.log(user.uid);
 
-  // })
+        getDoc(doc(db, "users", user.uid)).then((doc) => {
+          if (doc.exists()) {
+            console.log(doc.data());
+
+            dispatch(setUserRedux(doc.data()));
+          }
+        });
+      }
+    });
+  }, [router, dispatch]);
 
   return (
     <>
@@ -91,7 +112,7 @@ function NavBar({children}) {
               X
             </div>
           </div>
-          <div className=" flex flex-col  gap-6 justify-center  self-center w-[70%] my-12 ">
+          <div className=" flex flex-col  gap-6 justify-center  self-center bg-navBarBGPrimary w-[70%] my-12 ">
             {routes.map((route, index) => {
               return (
                 <div
@@ -127,6 +148,35 @@ function NavBar({children}) {
                 </div>
               );
             })}
+          </div>
+          <div className=" flex flex-col gap-6 h-[30%] px-16 py-6 md:px-10 justify-end items-stretch text-white">
+            <div
+              onClick={() => {
+                router.push("/admin/settings");
+              }}
+              className="flex items-center cursor-pointer gap-5 "
+            >
+              <div
+                className={` hidden w-12 h-8 bg-fontColorActive   absolute -left-11 rounded-lg`}
+              ></div>
+              <div className=" text-red-300 ">
+                <Home className={`stroke-white `} />
+              </div>
+              <div className={`text-white`}>Settings</div>
+            </div>
+            <div
+              onClick={() => {
+                signOut(auth).then(() => {
+                  router.replace("/");
+                });
+              }}
+              className="flex items-center cursor-pointer gap-5 "
+            >
+              <div className=" text-red-300 ">
+                <Home className={`stroke-white `} />
+              </div>
+              <div className={`text-white`}>LogOut</div>
+            </div>
           </div>
         </div>
         {/* Header */}

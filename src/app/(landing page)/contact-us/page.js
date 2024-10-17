@@ -8,7 +8,7 @@ import NavBar from "@/components/navBar";
 function Page() {
   return (
     <NavBar>
-      <div className="bg-[url('/assets/img/bg.png')]">
+      <div className=" py-12 bg-[url('/assets/img/bg.png')]">
         <div
           class="flex justify-center text-white items-center md:h-screen bg-[url('/public/assets/img/contact-bg.png')]  bg-no-repeat bg-cover "
           // style="background-image: url(./img/contact-bg.png)"
@@ -22,26 +22,26 @@ function Page() {
                   name=""
                   id=""
                   placeholder="Enter name"
-                  class="p-4 rounded-lg focus:outline-none bg-transparent ring-2 ring-[#393737]"
+                  class="p-4 rounded-lg focus:outline-none bg-transparent border-2 border-[#393737]"
                 />
                 <input
                   type="text"
                   name=""
                   id=""
                   placeholder="Enter Email"
-                  class="p-4 rounded-lg focus:outline-none bg-transparent ring-2 ring-[#393737]"
+                  class="p-4 rounded-lg focus:outline-none bg-transparent border-2 border-[#393737]"
                 />
                 <input
                   type="text"
                   name=""
                   id=""
                   placeholder="Enter Address"
-                  class="p-4 rounded-lg focus:outline-none bg-transparent ring-2 ring-[#393737]"
+                  class="p-4 rounded-lg focus:outline-none bg-transparent border-2 border-[#393737]"
                 />
                 <textarea
                   placeholder="Enter Message"
                   rows="4"
-                  class="p-4 rounded-lg focus:outline-none bg-transparent ring-2 ring-[#393737]"
+                  class="p-4 rounded-lg focus:outline-none bg-transparent border-2 border-[#393737]"
                 ></textarea>
                 <button
                   type="submit"

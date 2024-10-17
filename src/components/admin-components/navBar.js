@@ -138,6 +138,7 @@ function NavBar({children}) {
               );
             })}
           </div>
+          {/* settings */}
           <div className=" flex flex-col gap-4 h-[50%] px-16 md:p-6 justify-end items-stretch text-white">
             <div
               onClick={() => {
@@ -155,7 +156,9 @@ function NavBar({children}) {
             </div>
             <div
               onClick={() => {
-                router.push("/admin/settings");
+                signOut(auth).then(() => {
+                  router.replace("/");
+                });
               }}
               className="flex items-center cursor-pointer gap-5 "
             >
@@ -165,16 +168,7 @@ function NavBar({children}) {
               <div className=" text-red-300 ">
                 <Home className={`stroke-white `} />
               </div>
-              <div
-                onClick={() => {
-                  signOut(auth).then(() => {
-                    router.replace("/");
-                  });
-                }}
-                className={`text-white`}
-              >
-                LogOut
-              </div>
+              <div className={`text-white`}>LogOut</div>
             </div>
           </div>
         </div>

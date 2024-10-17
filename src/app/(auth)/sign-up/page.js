@@ -26,7 +26,7 @@ function Page() {
               email: email,
               uid: user.user.uid,
               name: name,
-              admin: email === "admin@root.com" ? true : false,
+              admin: false,
             },
             {merge: true}
           )

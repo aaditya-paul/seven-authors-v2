@@ -64,11 +64,14 @@ function Page() {
                 Sign In to start your literary journey.
               </p>
 
-              <button className=" px-8 bg-[#E12F3B] py-2 rounded-lg w-fit">
-                <Link href="/login" className=" text-center align-text-bottom">
-                  Sign In
-                </Link>
-              </button>
+              <Link
+                href={"/e-book"}
+                className=" px-8 active:scale-95 transition-all ease-linear bg-[#E12F3B] py-2 rounded-lg w-fit"
+              >
+                <div className=" text-center align-text-bottom">
+                  Get Started
+                </div>
+              </Link>
             </div>
           </div>
         </div>

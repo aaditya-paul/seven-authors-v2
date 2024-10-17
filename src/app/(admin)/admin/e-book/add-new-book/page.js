@@ -4,7 +4,9 @@ import {doc, setDoc} from "@firebase/firestore";
 import React, {useState} from "react";
 import {db, storage} from "../../../../../../firebase";
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
-
+import Image from "next/image";
+import BOOK from "../../../../../../public/assets/img/book-demo.svg";
+import {useRouter} from "next/navigation";
 const BookForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,10 +17,14 @@ const BookForm = () => {
   );
   const [copyright, setCopyright] = useState(false);
   const [coverImage, setCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState(null); // For previewing the image
   const [book, setBook] = useState(null);
   const [downloadURL, setDownloadURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState("");
+
+  const router = useRouter();
+
   const handleFileUpload = async (file, id) => {
     if (!file) return;
 
@@ -40,6 +46,19 @@ const BookForm = () => {
     }
   };
 
+  const handleCoverImageChange = (e) => {
+    const file = e.target.files[0];
+    setCoverImage(file);
+
+    // Generate a URL for preview
+    if (file) {
+      const imagePreviewUrl = URL.createObjectURL(file);
+      setCoverImagePreview(imagePreviewUrl);
+    } else {
+      setCoverImagePreview(null);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -54,7 +73,7 @@ const BookForm = () => {
       book,
       price,
     });
-    // Logic to handle form submission, e.g., sending data to the server
+
     if (
       !title ||
       !description ||
@@ -88,9 +107,12 @@ const BookForm = () => {
         book: await handleFileUpload(book, uniqueId),
         price,
         slug: uniqueId,
+        totalSales: 0,
+        total: 0,
       })
         .then(() => {
           alert("Book added successfully");
+          router.push("/admin/e-book");
         })
         .catch((error) => {
           alert("Error adding book: ", error);
@@ -182,18 +204,7 @@ const BookForm = () => {
               />
               <label>All the copy rights are reserved to me</label>
             </div>
-            <div className=" flex gap-10 items-center justify-between outline-none">
-              <label className="block">
-                Upload the cover image of the book
-              </label>
-              <input
-                type="file"
-                onChange={(e) => setCoverImage(e.target.files[0])}
-                className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
-                accept="image/*"
-                required
-              />
-            </div>
+
             <div className=" flex gap-10 items-center justify-between outline-none">
               <label className="block">Upload the the Book</label>
               <input
@@ -203,6 +214,31 @@ const BookForm = () => {
                 accept=".pdf, .doc, .docx"
                 required
               />
+            </div>
+            <div className=" flex items-center justify-between">
+              <div className=" flex flex-col gap-5 justify-between outline-none">
+                <label className="block">
+                  Upload the cover image of the book
+                </label>
+                <input
+                  type="file"
+                  onChange={handleCoverImageChange} // Updated to handle image preview
+                  className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
+                  accept="image/*"
+                  required
+                />
+              </div>
+              {coverImagePreview ? ( // Display the preview if there's an image
+                <div className="flex justify-center mt-4">
+                  <Image
+                    src={coverImagePreview}
+                    alt="Cover Preview"
+                    width={120}
+                    height={180}
+                    className=" max-w-[120px] h-[180px]  object-cover rounded-lg"
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
           <button

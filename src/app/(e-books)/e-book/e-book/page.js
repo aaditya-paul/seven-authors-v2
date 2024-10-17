@@ -3,8 +3,9 @@
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {usePathname, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {fetchBooks} from "@/utils/fetchBooks";
+import Link from "next/link";
 
 function Page() {
   const [books, setBooks] = useState([]); // Use plural form for books state
@@ -22,8 +23,8 @@ function Page() {
       }
     };
 
-    getBooks(); // Call the fetch function
-  }, []); // Empty dependency array to run once on mount
+    getBooks();
+  }, []);
 
   return (
     <div>
@@ -38,113 +39,126 @@ function Page() {
           Filter
         </button>
       </div>
-
-      <div className="flex flex-col md:gap-12 md:my-12 gap-5 my-12">
-        {/* Recommended Section */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Recommended For You
-          </h1>
-          <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
-            <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
-              {books.map((book, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    router.push(`/e-book/e-book/${book.slug}`); // Use a dynamic slug
-                  }}
-                  className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
-                >
-                  <Image
-                    src={BOOK}
-                    alt="Book Cover"
-                    className="max-w-[120px] h-[180px] rounded-lg shadow"
-                  />
-                  <p className="text-white text-xs font-normal">{book.name}</p>
-                  <div className="flex">
-                    <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
-                      {book.genre} {/* Use genre from fetched book */}
+      {books.length > 0 ? (
+        <div className="flex flex-col md:gap-12 md:my-12 gap-5 my-12">
+          {/* Recommended Section */}
+          <div>
+            <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
+              Recommended For You
+            </h1>
+            <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
+              <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
+                {books.map((book, index) => (
+                  <Link
+                    href={`/e-book/e-book/${book.slug}`}
+                    key={index}
+                    className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
+                  >
+                    <div className=" relative w-[120px] h-[180px] ">
+                      <Image
+                        src={book.coverImage}
+                        fill
+                        alt="Book Cover"
+                        className="w-[120px] h-[180px] rounded-lg shadow-md object-cover"
+                      />
+                    </div>
+                    <p className="text-white text-xs font-normal">
+                      {book.title}
                     </p>
-                  </div>
-                </div>
-              ))}
+                    <div className="flex">
+                      <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
+                        {book.genre} {/* Use genre from fetched book */}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
+                See more
+              </a>
             </div>
-            <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
+          </div>
+
+          {/* Best Seller Section */}
+          <div>
+            <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
+              Best Seller
+            </h1>
+            <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
+              <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
+                {books.map((book, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      router.push(`/e-book/e-book/${book.id}`); // Use a dynamic slug
+                    }}
+                    className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
+                  >
+                    <Image
+                      src={BOOK}
+                      alt="Book Cover"
+                      className="max-w-[120px] h-[180px] rounded-lg shadow"
+                      loading="lazy"
+                    />
+                    <p className="text-white text-xs font-normal">
+                      {book.name}
+                    </p>
+                    <div className="flex">
+                      <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
+                        {book.genre} {/* Use genre from fetched book */}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
+                See more
+              </a>
+            </div>
+          </div>
+
+          {/* Newly Launched Section */}
+          <div>
+            <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
+              Newly Launched
+            </h1>
+            <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
+              <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
+                {books.map((book, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      router.push(`/e-book/e-book/${book.slug}`); // Use a dynamic slug
+                    }}
+                    className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
+                  >
+                    <Image
+                      src={BOOK}
+                      alt="Book Cover"
+                      className="max-w-[120px] h-[180px] rounded-lg shadow"
+                    />
+                    <p className="text-white text-xs font-normal">
+                      {book.name}
+                    </p>
+                    <div className="flex">
+                      <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
+                        {book.genre} {/* Use genre from fetched book */}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
+                See more
+              </a>
+            </div>
           </div>
         </div>
-
-        {/* Best Seller Section */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Best Seller
-          </h1>
-          <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
-            <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
-              {books.map((book, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    router.push(`/e-book/e-book/${book.id}`); // Use a dynamic slug
-                  }}
-                  className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
-                >
-                  <Image
-                    src={BOOK}
-                    alt="Book Cover"
-                    className="max-w-[120px] h-[180px] rounded-lg shadow"
-                  />
-                  <p className="text-white text-xs font-normal">{book.name}</p>
-                  <div className="flex">
-                    <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
-                      {book.genre} {/* Use genre from fetched book */}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
-          </div>
+      ) : (
+        <div className="text-white text-xl font-bold">
+          No books available. Loading...
         </div>
-
-        {/* Newly Launched Section */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Newly Launched
-          </h1>
-          <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
-            <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
-              {books.map((book, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    router.push(`/e-book/e-book/${book.slug}`); // Use a dynamic slug
-                  }}
-                  className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
-                >
-                  <Image
-                    src={BOOK}
-                    alt="Book Cover"
-                    className="max-w-[120px] h-[180px] rounded-lg shadow"
-                  />
-                  <p className="text-white text-xs font-normal">{book.name}</p>
-                  <div className="flex">
-                    <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
-                      {book.genre} {/* Use genre from fetched book */}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <a className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

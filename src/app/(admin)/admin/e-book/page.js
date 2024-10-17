@@ -1,11 +1,35 @@
 "use client";
 
 import {fetchBooks} from "@/utils/fetchBooks";
+import {deleteDoc, doc} from "@firebase/firestore";
 import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
+import {db, storage} from "../../../../../firebase";
+import {deleteObject, ref} from "@firebase/storage";
 
 // BookRow Component
 const BookRow = ({book, index}) => {
+  const onClickDelete = async () => {
+    console.log(book.slug);
+
+    if (confirm("Are you sure you want to delete this book?") === true) {
+      await deleteDoc(doc(db, "books", book.slug))
+        .then(() => {
+          deleteObject(ref(storage, `books/${book.slug}`))
+            .then(() => {
+              alert("Book Deleted Successfully");
+              window.location.reload();
+            })
+            .catch((error) => {
+              alert("Error Deleting Book: ", error.message);
+            });
+        })
+        .catch((error) => {
+          alert("Error Deleting Book: ", error.message);
+        });
+    }
+  };
+
   return (
     <tr className="text-white text-xs">
       <td className="text-left">{index + 1}.</td>
@@ -15,19 +39,24 @@ const BookRow = ({book, index}) => {
       <td className="text-left">{book.totalSales}</td>
       <td className="text-left">{book.total}</td>
       <td className="text-left">
-        <div className="flex justify-center gap-2">
+        <div className="flex gap-2 justify-center">
           <div className="px-4 py-2 border rounded-md cursor-pointer border-blue-500">
             View
           </div>
           <div className="px-4 py-2 border rounded-md cursor-pointer border-yellow-500">
             Edit
           </div>
+          <div
+            onClick={onClickDelete}
+            className=" active:scale-95 transition-all ease-linear px-2 py-2 border rounded-md cursor-pointer border-red-500"
+          >
+            Delete
+          </div>
         </div>
       </td>
     </tr>
   );
 };
-
 // Main Page Component
 function Page() {
   const router = useRouter();
@@ -85,14 +114,14 @@ function Page() {
       <div className="bg-navBarBGPrimary h-[70vh] overflow-y-scroll no-scrollbar">
         <table className="w-full text-left border-collapse p-4 m-4">
           <thead>
-            <tr className="text-white/50 font-semibold text-xs ">
-              <th className="basis-[10%]">Sr. No.</th>
-              <th className="basis-[33.33%]">Name</th>
-              <th className="basis-[8.5%]">Base Price</th>
-              <th className="basis-[8.5%]">Created At</th>
-              <th className="basis-[8.5%]">Total Sales</th>
-              <th className="basis-[8.5%]">Total</th>
-              {/* <th className="basis-[12.5%]">Actions</th> */}
+            <tr className="text-white/50 font-semibold text-xs">
+              <th className="w-[8.5%]">Sr. No.</th>
+              <th className="w-[15%]">Name</th> {/* 3x space */}
+              <th className="w-[8%]">Base Price</th>
+              <th className="w-[8%]">Created At</th>
+              <th className="w-[8%]">Total Sales</th>
+              <th className="w-[8%]">Total</th>
+              <th className="w-[10.5%] text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
