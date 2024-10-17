@@ -5,31 +5,46 @@ import {deleteDoc, doc} from "@firebase/firestore";
 import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {db, storage} from "../../../../../firebase";
-import {deleteObject, ref} from "@firebase/storage";
+import {deleteObject, listAll, ref} from "@firebase/storage";
 
 // BookRow Component
 const BookRow = ({book, index}) => {
+  const router = useRouter();
+
   const onClickDelete = async () => {
     console.log(book.slug);
 
     if (confirm("Are you sure you want to delete this book?") === true) {
-      await deleteDoc(doc(db, "books", book.slug))
-        .then(() => {
-          deleteObject(ref(storage, `books/${book.slug}`))
-            .then(() => {
-              alert("Book Deleted Successfully");
-              window.location.reload();
-            })
-            .catch((error) => {
-              alert("Error Deleting Book: ", error.message);
-            });
-        })
-        .catch((error) => {
-          alert("Error Deleting Book: ", error.message);
-        });
+      try {
+        // First, delete all files in the folder
+        const folderRef = ref(storage, `books/${book.slug}`);
+        const listResult = await listAll(folderRef);
+        console.log("Files to delete:", listResult.items);
+        // Delete each file in the folder
+        const deletePromises = listResult.items.map((item) =>
+          deleteObject(item)
+        );
+
+        // Wait for all file deletions to complete
+        await Promise.all(deletePromises);
+        console.log(
+          `All files in folder 'books/${book.slug}' deleted successfully.`
+        );
+
+        // Now delete the document from Firestore
+        await deleteDoc(doc(db, "books", book.slug));
+        alert("Book Deleted Successfully");
+        window.location.reload();
+      } catch (error) {
+        alert("Error Deleting Book: " + error.message); // Use error.message for a better error message
+        console.error("Error Deleting Book:", error); // Log the error for debugging
+      }
     }
   };
 
+  const onClickView = () => {
+    window.open(`/e-book/e-book/${book.slug}`, "_blank");
+  };
   return (
     <tr className="text-white text-xs">
       <td className="text-left">{index + 1}.</td>
@@ -40,7 +55,10 @@ const BookRow = ({book, index}) => {
       <td className="text-left">{book.total}</td>
       <td className="text-left">
         <div className="flex gap-2 justify-center">
-          <div className="px-4 py-2 border rounded-md cursor-pointer border-blue-500">
+          <div
+            onClick={onClickView}
+            className="px-4 py-2 border rounded-md cursor-pointer border-blue-500"
+          >
             View
           </div>
           <div className="px-4 py-2 border rounded-md cursor-pointer border-yellow-500">

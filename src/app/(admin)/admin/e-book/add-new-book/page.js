@@ -153,7 +153,7 @@ const BookForm = () => {
           <div className=" flex gap-10 items-center justify-between outline-none">
             <label className="block">Enter the IRN number</label>
             <input
-              type="text"
+              type="number"
               value={irn}
               onChange={(e) => setirn(e.target.value)}
               className=" w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"

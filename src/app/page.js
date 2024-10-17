@@ -4,11 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RedLogo from "@/../public/assets/img/logo-red.svg";
-
 import faqimg from "@/../public/assets/img/faqImg.png";
-
 import wavyBg from "/public/assets/wavybg.svg";
-
 import BookSLider from "@/components/BookSLider";
 import Faq from "@/components/FaqQuestions";
 import FaqQuestions from "@/components/FaqQuestions";
