@@ -217,12 +217,12 @@ const BookForm = () => {
             </div>
 
             <div className=" flex gap-10 items-center justify-between outline-none">
-              <label className="block">Upload the the Book</label>
+              <label className="block">Upload the Book</label>
               <input
                 type="file"
                 onChange={(e) => setBook(e.target.files[0])}
                 className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
-                accept=".pdf, .doc, .docx"
+                accept=".doc, .docx"
                 required
               />
             </div>
