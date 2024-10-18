@@ -13,7 +13,9 @@ const BookForm = () => {
   const [description, setDescription] = useState("");
   const [irn, setirn] = useState("");
   const [genre, setGenre] = useState("");
-
+  const [creationDate, setCreationDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [copyright, setCopyright] = useState(false);
   const [coverImage, setCoverImage] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState(null); // For previewing the image
@@ -67,6 +69,7 @@ const BookForm = () => {
       description,
       irn,
       genre,
+      creationDate,
       copyright,
       coverImage,
       book,
@@ -78,6 +81,7 @@ const BookForm = () => {
       !description ||
       !irn ||
       !genre ||
+      !creationDate ||
       !coverImage ||
       !book ||
       !price
@@ -100,7 +104,7 @@ const BookForm = () => {
         description,
         irn,
         genre,
-        creationDate: new Date(),
+        creationDate,
         coverImage: await handleFileUpload(coverImage, uniqueId),
         book: await handleFileUpload(book, uniqueId),
         price,
@@ -180,7 +184,16 @@ const BookForm = () => {
               {/* Add more genres as needed */}
             </select>
           </div>
-
+          <div className=" flex gap-10 items-center justify-between outline-none">
+            <label className="block">Date of creation</label>
+            <input
+              type="date"
+              value={creationDate}
+              onChange={(e) => setCreationDate(e.target.value)}
+              className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
+              required
+            />
+          </div>
           <div className=" flex gap-10 items-center justify-between outline-none">
             <label className="block">Enter the price</label>
             <input
