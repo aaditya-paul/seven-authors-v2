@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {doc, getDoc} from "@firebase/firestore";
 import mammoth from "mammoth";
 import {db} from "../../../firebase";
@@ -12,6 +12,7 @@ export default function Page({
   setPages,
   setWordContent,
   wordContent,
+  setBookTitle,
 }) {
   const bookId = usePathname().slice(15);
   // const [wordContent, setWordContent] = useState("");
@@ -20,13 +21,19 @@ export default function Page({
   const [backgroundColor, setBackgroundColor] = useState("#ffffff"); // default white background
   const [fontColor, setFontColor] = useState("#000000"); // default black font color
 
+  const contentRef = useRef(null);
+
   const fontFamily = useSelector((state) => state.toolBar.font); // dynamic font family
   const fontSize = useSelector((state) => state.toolBar.fontSize); // dynamic font size
   const mode = useSelector((state) => state.toolBar.mode); // dynamic mode
 
+  const [localBookMark, setLocalBookMark] = useState();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [wordContent]);
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0; // Scroll to the top of the content div
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -37,7 +44,7 @@ export default function Page({
       if (docSnap.exists()) {
         const bookData = docSnap.data();
         const bookFileUrl = await bookData.book; // Get the download URL for the book
-
+        setBookTitle(bookData.title); // Set the book title
         // Fetch and display the Word document content
         const response = await fetch(bookFileUrl);
         const arrayBuffer = await response.arrayBuffer();
@@ -83,27 +90,6 @@ export default function Page({
     setWordContent(paginatedContent[currentPage]); // Display the first page
   };
 
-  const addBookmark = () => {
-    const currentBookmark = {page: currentPage, timestamp: Date.now()};
-    setBookmarks((prev) => [...prev, currentBookmark]);
-    // Optionally store bookmarks in localStorage or a database
-  };
-
-  const saveDocument = async () => {
-    // Save bookmarks and pages to the backend or regenerate a new Word file
-    const response = await fetch("/api/save-document", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({bookmarks, pages}),
-    });
-
-    if (response.ok) {
-      alert("Document saved successfully!");
-    }
-  };
-
   return (
     <div className="p-6">
       {/* Display the Document */}
@@ -112,37 +98,21 @@ export default function Page({
           <div>Loading...</div> // Loading indicator
         ) : (
           <div
-            className={`prose max-w-full p-4 rounded-md h-[75vh] overflow-y-auto ${fontFamily}`}
-            style={{
-              backgroundColor: backgroundColor, // dynamic background color
-              fontSize: fontSize, // dynamic font size
-              color: fontColor, // dynamic font color
-            }}
+            ref={contentRef}
+            className={`prose max-w-full  h-[75vh] overflow-y-auto ${fontFamily}`}
           >
-            <div dangerouslySetInnerHTML={{__html: wordContent}} />
+            <div
+              dangerouslySetInnerHTML={{__html: wordContent}}
+              style={{
+                backgroundColor: backgroundColor, // dynamic background color
+                fontSize: fontSize, // dynamic font size
+                color: fontColor, // dynamic font color
+              }}
+              className="p-4 rounded-md"
+            />
           </div>
         )}
       </div>
-
-      {/* Bookmark Feature */}
-      {/* <div className="mt-4">
-        <button
-          onClick={addBookmark}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Add Bookmark
-        </button>
-      </div> */}
-
-      {/* Save Document */}
-      {/* <div className="mt-4">
-        <button
-          onClick={saveDocument}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Save Document
-        </button>
-      </div> */}
     </div>
   );
 }

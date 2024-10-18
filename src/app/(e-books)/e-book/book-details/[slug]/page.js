@@ -36,6 +36,7 @@ const Page = () => {
           {merge: true}
         );
         alert("Book bought successfully");
+        window.location.reload();
       } catch (error) {
         console.error("Error buying book: ", error);
         alert("Failed to buy the book. Please try again.");
@@ -85,13 +86,18 @@ const Page = () => {
               {/* Change button text based on whether the book is bought or not */}
               {/* Preview */}
             </Link>
-            <button
-              onClick={handleBuy}
-              className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors"
-              disabled={buying} // Disable button while buying
-            >
-              {buying ? "Processing..." : "₹ " + book.price}{" "}
-            </button>
+            {
+              // Show buy button only if the book is not bought
+              boughtBooks && boughtBooks.includes(q) ? null : (
+                <button
+                  onClick={handleBuy}
+                  className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors"
+                  disabled={buying} // Disable button while buying
+                >
+                  {buying ? "Processing..." : "₹ " + book.price}{" "}
+                </button>
+              )
+            }
           </div>
         </div>
 

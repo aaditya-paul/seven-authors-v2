@@ -5,6 +5,11 @@
 @import "./theme.css";
 
 
+.prose strong {
+  color: inherit;
+  /* Makes <strong> tags inherit the current text color */
+}
+
 @layer utilities {
 
   /* Hide scrollbar for Chrome, Safari and Opera */

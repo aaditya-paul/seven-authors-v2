@@ -88,13 +88,17 @@ function ToolBar({currentPage, totalPages, goToPage}) {
                   onClick={() => dispatch(setMode(theme))}
                   className={`${
                     mode === theme ? "border-4 border-red-500" : "border-none"
-                  } px-3 cursor-pointer py-6 bg-${
+                  } px-3 cursor-pointer py-6
+                  
+                  ${
                     theme === "night"
-                      ? "[#FAE6B5]"
+                      ? " bg-[#FAE6B5]"
                       : theme === "light"
-                      ? "white"
-                      : "[#292929]"
-                  } rounded-md`}
+                      ? " bg-[#ffffff]"
+                      : " bg-[#292929]"
+                  }
+                  
+                  rounded-md`}
                 />
               ))}
             </div>
