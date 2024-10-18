@@ -1,6 +1,6 @@
 "use client";
 
-import {doc, setDoc} from "@firebase/firestore";
+import {arrayUnion, doc, setDoc} from "@firebase/firestore";
 import React, {useState} from "react";
 import {db, storage} from "../../../../../../firebase";
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
@@ -13,9 +13,7 @@ const BookForm = () => {
   const [description, setDescription] = useState("");
   const [irn, setirn] = useState("");
   const [genre, setGenre] = useState("");
-  const [creationDate, setCreationDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+
   const [copyright, setCopyright] = useState(false);
   const [coverImage, setCoverImage] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState(null); // For previewing the image
@@ -24,7 +22,7 @@ const BookForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState("");
 
-  const user = useSelector((state) => state.AdminRedux.user.name);
+  const user = useSelector((state) => state.AdminRedux.user);
   const router = useRouter();
 
   const handleFileUpload = async (file, id) => {
@@ -69,7 +67,6 @@ const BookForm = () => {
       description,
       irn,
       genre,
-      creationDate,
       copyright,
       coverImage,
       book,
@@ -81,7 +78,6 @@ const BookForm = () => {
       !description ||
       !irn ||
       !genre ||
-      !creationDate ||
       !coverImage ||
       !book ||
       !price
@@ -104,16 +100,23 @@ const BookForm = () => {
         description,
         irn,
         genre,
-        creationDate,
+        creationDate: new Date(),
         coverImage: await handleFileUpload(coverImage, uniqueId),
         book: await handleFileUpload(book, uniqueId),
         price,
         slug: uniqueId,
         totalSales: 0,
         total: 0,
-        author: user,
+        author: user.name,
       })
-        .then(() => {
+        .then(async () => {
+          await setDoc(
+            doc(db, "users", user.uid),
+            {
+              booksBought: arrayUnion(uniqueId),
+            },
+            {merge: true}
+          );
           alert("Book added successfully");
           router.push("/admin/e-book");
         })
@@ -177,16 +180,7 @@ const BookForm = () => {
               {/* Add more genres as needed */}
             </select>
           </div>
-          <div className=" flex gap-10 items-center justify-between outline-none">
-            <label className="block">Date of creation</label>
-            <input
-              type="date"
-              value={creationDate}
-              onChange={(e) => setCreationDate(e.target.value)}
-              className="w-64 p-2 border border-gray-400 rounded-md bg-transparent outline-none"
-              required
-            />
-          </div>
+
           <div className=" flex gap-10 items-center justify-between outline-none">
             <label className="block">Enter the price</label>
             <input
