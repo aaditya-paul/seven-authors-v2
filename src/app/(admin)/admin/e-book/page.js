@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {db, storage} from "../../../../../firebase";
 import {deleteObject, listAll, ref} from "@firebase/storage";
+import {useSelector} from "react-redux";
 
 // BookRow Component
 const BookRow = ({book, index}) => {
@@ -81,22 +82,28 @@ function Page() {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const user = useSelector((state) => state.AdminRedux.user);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchBooks(); // Fetch books data
-        console.log("Fetched data:", data); // Log fetched data
-        setBooks(data);
-      } catch (error) {
-        console.error(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (user) {
+      const fetchData = async () => {
+        try {
+          const data = await fetchBooks(); // Fetch books data
+          console.log("Fetched data:", data); // Log fetched data
+          const booksWithPurchaseInfo = data.filter(
+            (book) => user.uid == book.authorUID
+          );
 
-    fetchData(); // Call the fetch function
-  }, []);
+          setBooks(booksWithPurchaseInfo);
+        } catch (error) {
+          console.error(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData(); // Call the fetch function
+    }
+  }, [user]);
 
   // Filtered Books based on Search Term
   const filteredBooks = books.filter((book) =>

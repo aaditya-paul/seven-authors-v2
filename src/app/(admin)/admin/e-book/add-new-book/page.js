@@ -112,6 +112,7 @@ const BookForm = () => {
         totalSales: 0,
         total: 0,
         author: user.name,
+        authorUID: user.uid,
       })
         .then(async () => {
           await setDoc(
