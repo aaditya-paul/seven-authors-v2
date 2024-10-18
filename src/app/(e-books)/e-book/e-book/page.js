@@ -50,7 +50,9 @@ function Page() {
               <div className="grid grid-cols-2 md:grid-cols-6 md:gap-8 overflow-x-scroll w-full no-scrollbar">
                 {books.map((book, index) => (
                   <Link
-                    href={`/e-book/e-book/${book.slug}`}
+                    href={{
+                      pathname: `/e-book/book-details/${book.slug}`,
+                    }}
                     key={index}
                     className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
                   >

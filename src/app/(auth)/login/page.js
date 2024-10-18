@@ -4,9 +4,14 @@ import React from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import {signInWithEmailAndPassword} from "@firebase/auth";
-import {auth} from "../../../../firebase";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "@firebase/auth";
+import {auth, db} from "../../../../firebase";
 import {useRouter} from "next/navigation";
+import {doc, setDoc} from "@firebase/firestore";
 function Page() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -24,6 +29,30 @@ function Page() {
           alert(error.message);
         });
     }
+  };
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, new GoogleAuthProvider()).then((user) => {
+      setDoc(
+        doc(db, "users", user.user.uid),
+        {
+          name: user.user.displayName,
+          email: user.user.email,
+          uid: user.user.uid,
+          name: user.user.displayName,
+          admin: false,
+          pfp: user.user.photoURL,
+        },
+        {merge: true}
+      )
+        .then(() => {
+          console.log("User created");
+          router.push(`/auth-redirect?uid=${user.user.uid}`);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    });
   };
 
   return (
@@ -49,12 +78,27 @@ function Page() {
               />
             </div>
             <p class="tag mt-2">Forgot password ?</p>
-            <div class="flex w-full">
+            <div class="flex flex-col gap-5 w-full">
               <button
                 onClick={HandleClick}
                 class="bg-red-600 px-10 py-2 text-white font-semibold w-full rounded-md hover:bg-red-800"
               >
                 Login
+              </button>
+              {/* google */}
+              <button
+                className="flex cursor-pointer items-center hover:bg-gray-100 transition-all justify-center w-full px-4 py-2   rounded-lg border border-slate-400  "
+                onClick={handleGoogleSignIn}
+              >
+                Sign in with
+                <span className="m-1 font-bold text-lg">
+                  <span className="text-[#4285F4]">G</span>
+                  <span className="text-[#EA4335]">o</span>
+                  <span className="text-[#FBBC05]">o</span>
+                  <span className="text-[#4285F4]">g</span>
+                  <span className="text-[#34A853]">l</span>
+                  <span className="text-[#EA4335]">e</span>
+                </span>
               </button>
             </div>
 

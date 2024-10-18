@@ -1,4 +1,4 @@
-import {collection, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs} from "firebase/firestore";
 import {db} from "../../firebase";
 
 export const fetchBooks = async () => {
@@ -9,6 +9,17 @@ export const fetchBooks = async () => {
       id: doc.id,
       ...doc.data(),
     }));
+
+    return bookList; // Return the list of books
+  } catch (err) {
+    throw new Error("Failed to fetch books: " + err.message);
+  }
+};
+export const fetchSingleBook = async (id) => {
+  try {
+    const booksCollection = doc(db, "books", id);
+    const bookSnapshot = await getDoc(booksCollection);
+    const bookList = bookSnapshot.data();
 
     return bookList; // Return the list of books
   } catch (err) {

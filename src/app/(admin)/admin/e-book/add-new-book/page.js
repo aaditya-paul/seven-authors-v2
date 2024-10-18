@@ -7,6 +7,7 @@ import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import Image from "next/image";
 import BOOK from "../../../../../../public/assets/img/book-demo.svg";
 import {useRouter} from "next/navigation";
+import {useSelector} from "react-redux";
 const BookForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,6 +24,7 @@ const BookForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState("");
 
+  const user = useSelector((state) => state.AdminRedux.user.name);
   const router = useRouter();
 
   const handleFileUpload = async (file, id) => {
@@ -109,6 +111,7 @@ const BookForm = () => {
         slug: uniqueId,
         totalSales: 0,
         total: 0,
+        author: user,
       })
         .then(() => {
           alert("Book added successfully");
