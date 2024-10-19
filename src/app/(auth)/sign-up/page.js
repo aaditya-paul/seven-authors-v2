@@ -32,7 +32,7 @@ function Page() {
               uid: user.user.uid,
               name: name,
               // TODO feature
-              admin: q.get("type") === "iamadmin123" ? true : false,
+
               // bookSeller: false,
             },
             {merge: true}
@@ -61,8 +61,7 @@ function Page() {
             email: user.user.email,
             uid: user.user.uid,
             name: user.user.displayName,
-            // TODO feature
-            admin: q.get("type") === "iamadmin123" ? true : false,
+
             pfp: user.user.photoURL,
             // bookSeller: q.get("type") === "seller" ? true : false,
           },
