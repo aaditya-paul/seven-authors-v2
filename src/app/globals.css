@@ -4,6 +4,22 @@
 
 @import "./theme.css";
 
+.custom-content h1,
+.custom-content h2,
+.custom-content h3,
+.custom-content p,
+.custom-content strong,
+.custom-content b {
+  color: inherit;
+  overflow: hidden;
+  /* Make sure these elements inherit the color */
+}
+
+.custom-content h1,
+.custom-content h2,
+.custom-content h3 {
+  padding: 9px 0 9px 0;
+}
 
 .prose strong {
   color: inherit;

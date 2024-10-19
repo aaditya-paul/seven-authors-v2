@@ -9,6 +9,7 @@ import {arrayUnion, doc, increment, setDoc} from "@firebase/firestore";
 import {db} from "../../../../../../firebase";
 import {useSelector} from "react-redux";
 import Link from "next/link";
+import BookImage from "@/components/e-book-components/bookImage";
 
 const Page = () => {
   const q = usePathname().slice(21);
@@ -68,14 +69,7 @@ const Page = () => {
       {/* Book Image */}
       <div className="flex flex-col md:flex-row w-full justify-center items-center md:items-start md:justify-evenly">
         <div className="w-fit gap-16">
-          <div className="relative w-[80vw] h-[150px] md:w-[200px] md:h-[300px]">
-            <Image
-              src={book.coverImage}
-              alt="The Martian"
-              fill
-              className="rounded-md object-cover"
-            />
-          </div>
+          <BookImage book={book} />
           {/* Buttons */}
           <div className="mt-4 flex flex-col gap-4">
             <Link

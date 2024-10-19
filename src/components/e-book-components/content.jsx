@@ -108,7 +108,7 @@ export default function Page({
                 fontSize: fontSize, // dynamic font size
                 color: fontColor, // dynamic font color
               }}
-              className="p-4 rounded-md"
+              className="p-4 rounded-md custom-content"
             />
           </div>
         )}
