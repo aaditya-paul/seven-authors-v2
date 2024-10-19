@@ -8,15 +8,19 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "@firebase/auth";
-import {auth, db} from "../../../../firebase";
+
 import {doc, setDoc} from "@firebase/firestore";
 import {useRouter, useSearchParams} from "next/navigation";
+import {auth, db} from "../../../../../firebase";
 
 function Page() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const router = useRouter();
+
+  const q = useSearchParams();
+  console.log(q);
 
   const HandleClick = () => {
     if (email === "" || password === "" || name === "") {
@@ -33,7 +37,7 @@ function Page() {
               name: name,
               // TODO feature
               admin: q.get("type") === "iamadmin123" ? true : false,
-              // bookSeller: false,
+              bookSeller: true,
             },
             {merge: true}
           )
@@ -64,7 +68,7 @@ function Page() {
             // TODO feature
             admin: q.get("type") === "iamadmin123" ? true : false,
             pfp: user.user.photoURL,
-            // bookSeller: q.get("type") === "seller" ? true : false,
+            bookSeller: true,
           },
           {merge: true}
         )
@@ -92,7 +96,7 @@ function Page() {
             </div>
             <div class="w-full  px-10 md:mt-20 mt-12 md:px-10">
               <h1>
-                Create an <strong>User </strong> Account
+                Create an <strong>Seller </strong> Account
               </h1>
               {/* <div class="flex items-center md:gap-2">
                 <div class="flex justify-center items-center mt-8 md:mt-3">
@@ -168,9 +172,9 @@ function Page() {
                 </Link>
               </div>
               <div class="flex gap-3 mt-1 mb-5 md:mb-0">
-                <p>Want a Seller account ?</p>
+                <p>Want a Consumer account ?</p>
                 <Link
-                  href={"/sign-up/seller"}
+                  href={"/sign-up"}
                   class="text-red-500 hover:cursor-pointer"
                 >
                   Click Here

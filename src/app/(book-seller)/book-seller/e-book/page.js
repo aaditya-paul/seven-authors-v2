@@ -48,7 +48,7 @@ const BookRow = ({book, index}) => {
   };
 
   const onClickEdit = () => {
-    router.push(`/admin/e-book/edit/${book.slug}`);
+    router.push(`/book-seller/e-book/edit/${book.slug}`);
   };
   return (
     <tr className="text-white text-xs">
@@ -97,11 +97,11 @@ function Page() {
           const data = await fetchBooks(); // Fetch books data
           console.log("Fetched data:", data); // Log fetched data
 
-          // const booksWithPurchaseInfo = data.filter(
-          //   (book) => user.uid == book.authorUID
-          // );
+          const booksWithPurchaseInfo = data.filter(
+            (book) => user.uid == book.authorUID
+          );
 
-          setBooks(data);
+          setBooks(booksWithPurchaseInfo);
         } catch (error) {
           console.error(error.message);
         } finally {
@@ -136,7 +136,7 @@ function Page() {
         />
         <button
           onClick={() => {
-            router.push("/admin/e-book/add-new-book");
+            router.push("/book-seller/e-book/add-new-book");
           }}
           className="md:ml-4 bg-red-700 outline-none text-white px-3 p-2 md:px-5 md:p-2 rounded-md"
         >

@@ -40,7 +40,7 @@ function Page() {
           email: user.user.email,
           uid: user.user.uid,
           name: user.user.displayName,
-          admin: false,
+
           pfp: user.user.photoURL,
         },
         {merge: true}

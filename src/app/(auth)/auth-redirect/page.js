@@ -21,6 +21,8 @@ const LoadingScreen = () => {
           console.log("Document data:", userDoc.data());
           if (userDoc.data().admin) {
             router.push("/admin");
+          } else if (userDoc.data().bookSeller) {
+            router.push("/book-seller");
           } else {
             router.push("/e-book");
           }

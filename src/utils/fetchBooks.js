@@ -20,8 +20,11 @@ export const fetchSingleBook = async (id) => {
     const booksCollection = doc(db, "books", id);
     const bookSnapshot = await getDoc(booksCollection);
     const bookList = bookSnapshot.data();
-
-    return bookList; // Return the list of books
+    if (bookSnapshot.exists()) {
+      return bookList; // Return the list of books
+    } else {
+      return -1;
+    }
   } catch (err) {
     throw new Error("Failed to fetch books: " + err.message);
   }
