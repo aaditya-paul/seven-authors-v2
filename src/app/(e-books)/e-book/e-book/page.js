@@ -6,6 +6,7 @@ import BOOK from "/public/assets/img/book-demo.svg";
 import {useRouter} from "next/navigation";
 import {fetchBooks} from "@/utils/fetchBooks";
 import Link from "next/link";
+import BookImage from "@/components/e-book-components/bookImage";
 
 function Page() {
   const [books, setBooks] = useState([]); // Use plural form for books state
@@ -54,17 +55,10 @@ function Page() {
                       pathname: `/e-book/book-details/${book.slug}`,
                     }}
                     key={index}
-                    className="flex cursor-pointer flex-col gap-3 sm:w-full md:w-full my-3 md:my-5"
+                    className="flex cursor-pointer flex-col justify-between gap-3 sm:w-full md:w-full my-3 md:my-5"
                   >
-                    <div className=" relative w-[120px] h-[180px] ">
-                      <Image
-                        src={book.coverImage}
-                        fill
-                        alt="Book Cover"
-                        className="w-[120px] h-[180px] rounded-lg shadow-md object-cover"
-                      />
-                    </div>
-                    <p className="text-white text-xs font-normal">
+                    <BookImage size="sm" book={book} />
+                    <p className="text-white text-sm font-medium font-roboto">
                       {book.title}
                     </p>
                     <div className="flex">

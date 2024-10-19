@@ -67,7 +67,7 @@ const Page = () => {
   return (
     <div className="text-white w-full rounded-lg overflow-hidden p-6">
       {/* Book Image */}
-      <div className="flex flex-col md:flex-row w-full justify-center items-center md:items-start md:justify-evenly">
+      <div className="flex flex-col md:flex-row w-full justify-center items-start md:items-start md:justify-evenly">
         <div className="w-fit gap-16">
           <BookImage book={book} />
           {/* Buttons */}

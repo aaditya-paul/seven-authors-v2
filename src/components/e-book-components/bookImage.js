@@ -1,11 +1,18 @@
 import Image from "next/image";
 import React, {useState} from "react";
+import "../../styles/bookImage.css";
 
-const BookImage = ({book}) => {
+const BookImage = ({book, size}) => {
   const [imageLoaded, setImageLoaded] = useState(false); // Track image load state
 
   return (
-    <div className="relative w-[80vw] h-[150px] md:w-[200px] md:h-[300px]">
+    <div
+      className={`relative ${
+        size == "sm"
+          ? "w-[120px] h-[180px]"
+          : "w-[80vw] h-[150px] md:w-[200px] md:h-[300px]"
+      }  `}
+    >
       {/* Conditionally render the loader if the image has not loaded yet */}
       {!imageLoaded && (
         <div className="loader-container">
@@ -18,9 +25,12 @@ const BookImage = ({book}) => {
         src={book.coverImage}
         alt={book.title}
         fill
-        className="rounded-md object-cover"
+        className={`rounded-md object-cover ${
+          size == "sm"
+            ? "w-[120px] h-[180px]"
+            : "w-[80vw] h-[150px] md:w-[200px] md:h-[300px]"
+        } `}
         loading="lazy"
-        loader={({src}) => src}
         onLoadingComplete={() => setImageLoaded(true)} // Set imageLoaded to true when the image is loaded
       />
     </div>
