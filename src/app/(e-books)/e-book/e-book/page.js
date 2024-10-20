@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {useRouter} from "next/navigation";
-import {fetchBooks} from "@/utils/fetchBooks";
+import { useRouter } from "next/navigation";
+import { fetchBooks } from "@/utils/fetchBooks";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
 import BookCards from "@/components/bookCards";
+import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
   const [books, setBooks] = useState([]);
@@ -81,9 +82,7 @@ function Page() {
           </div>
         </div>
       ) : (
-        <div className="text-white text-xl font-bold">
-          No books available. Loading...
-        </div>
+        <Loader height={"70"} />
       )}
     </div>
   );

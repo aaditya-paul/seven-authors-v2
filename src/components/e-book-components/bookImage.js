@@ -1,8 +1,9 @@
 import Image from "next/image";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../../styles/bookImage.css";
+import Loader from "../LoaderComponent/Loader";
 
-const BookImage = ({book, size}) => {
+const BookImage = ({ book, size }) => {
   const [imageLoaded, setImageLoaded] = useState(false); // Track image load state
 
   return (
@@ -14,11 +15,7 @@ const BookImage = ({book, size}) => {
       }  `}
     >
       {/* Conditionally render the loader if the image has not loaded yet */}
-      {!imageLoaded && (
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      )}
+      {imageLoaded && <Loader height={50}/>}
 
       {/* Image element that triggers the loading completion handler */}
       <Image
