@@ -9,6 +9,7 @@ import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
 import Search from "/public/assets/Search.js";
 import BookMarkLogo from "/public/assets/BookMark.js";
+import logoutlogo from "/public/assets/icon/logout.png";
 
 import RedHomeLogo from "/public/assets/RedHomeLogo.js";
 
@@ -159,20 +160,6 @@ function NavBar({ children }) {
           <div className="flex flex-col gap-6 h-[30%] px-16 py-6 md:px-10 justify-end items-stretch text-white">
             <div
               onClick={() => {
-                router.push("/admin/settings");
-              }}
-              className="flex items-center cursor-pointer gap-5 "
-            >
-              <div
-                className={` hidden w-12 h-8 bg-fontColorActive   absolute -left-11 rounded-lg`}
-              ></div>
-              <div className=" text-red-300 ">
-                <Home className={`stroke-white `} />
-              </div>
-              <div className={`text-white`}>Settings</div>
-            </div>
-            <div
-              onClick={() => {
                 signOut(auth).then(() => {
                   router.replace("/");
                 });
@@ -180,7 +167,7 @@ function NavBar({ children }) {
               className="flex items-center cursor-pointer gap-5 "
             >
               <div className=" text-red-300 ">
-                <Home className={`stroke-white `} />
+                <Image src={logoutlogo} alt="" width={20} height={20} className="invert"/>
               </div>
               <div className={`text-white`}>LogOut</div>
             </div>
