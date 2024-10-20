@@ -1,13 +1,14 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LOGO from "/public/assets/img/logo-white.svg";
 import BOOK from "/public/assets/img/book-demo.svg";
 import NavBar from "@/components/navBar";
 import BookCards from "@/components/bookCards";
 import Link from "next/link";
-import {fetchBooks} from "@/utils/fetchBooks";
+import { fetchBooks } from "@/utils/fetchBooks";
+import Loader from "@/components/LoaderComponent/Loader";
 function Page() {
   const [bestSellers, setBestSellers] = useState([]);
   const [newlyReleased, setNewlyReleased] = useState([]);
@@ -81,7 +82,7 @@ function Page() {
       </NavBar>
     );
   } else {
-    return <div className="text-white text-xl font-bold">Loading...</div>;
+    return <Loader />;
   }
 }
 

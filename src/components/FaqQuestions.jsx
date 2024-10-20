@@ -13,7 +13,7 @@ const FaqQuestions = ({ques, index}) => {
           isquesOpen
             ? "bg-[#E12F3B]/10 border-red-700"
             : "bg-white/10 border-gray-500  "
-        } lg:w-[600px] w-[350px] border-2 transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-lg`}
+        } lg:w-[600px]  border-2 transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-lg`}
         onClick={() => {
           setIsquesOpen(!isquesOpen);
         }}
