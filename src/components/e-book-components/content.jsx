@@ -1,11 +1,12 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
-import {doc, getDoc} from "@firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
+import { doc, getDoc } from "@firebase/firestore";
 import mammoth from "mammoth";
-import {db} from "../../../firebase";
-import {usePathname} from "next/navigation";
-import {useSelector} from "react-redux";
+import { db } from "../../../firebase";
+import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import Loader from "../LoaderComponent/Loader";
 
 export default function Page({
   currentPage,
@@ -48,7 +49,7 @@ export default function Page({
         // Fetch and display the Word document content
         const response = await fetch(bookFileUrl);
         const arrayBuffer = await response.arrayBuffer();
-        const result = await mammoth.convertToHtml({arrayBuffer});
+        const result = await mammoth.convertToHtml({ arrayBuffer });
         splitContentIntoPages(result.value); // Split content into pages
       } else {
         console.error("No such document!");
@@ -95,18 +96,20 @@ export default function Page({
       {/* Display the Document */}
       <div className="">
         {isLoading ? (
-          <div>Loading...</div> // Loading indicator
+          <Loader /> // Loading indicator
         ) : (
           <div
             ref={contentRef}
             className={`prose max-w-full font-[${fontColor}] h-[75vh] overflow-y-auto ${fontFamily}`}
           >
             <div
-              dangerouslySetInnerHTML={{__html: wordContent}}
+              dangerouslySetInnerHTML={{ __html: wordContent }}
               style={{
                 backgroundColor: backgroundColor, // dynamic background color
                 fontSize: fontSize, // dynamic font size
                 color: fontColor, // dynamic font color
+                paddingLeft: "100px",
+                paddingRight: "100px",
               }}
               className="  p-4 rounded-md custom-content"
             />

@@ -1,12 +1,13 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {fetchBooks} from "@/utils/fetchBooks";
+import { fetchBooks } from "@/utils/fetchBooks";
 import BookImage from "@/components/e-book-components/bookImage";
 import Link from "next/link";
 import BookCards from "@/components/bookCards";
+import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
   const [bestSellers, setBestSellers] = useState([]);
@@ -89,7 +90,7 @@ function Page() {
       </div>
     );
   } else {
-    return <div className="text-white text-xl font-bold">Loading...</div>;
+    return <Loader />;
   }
 }
 

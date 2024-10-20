@@ -1,20 +1,20 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
 import Book from "/public/assets/e-bbok.js";
 import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
 import Image from "next/image";
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import {doc, getDoc, getDocs} from "@firebase/firestore";
-import {onAuthStateChanged, signOut} from "@firebase/auth";
-import {auth, db} from "../../../firebase";
-import {useDispatch} from "react-redux";
-import {setUID, setUserRedux} from "@/lib/redux/features/admin";
-function NavBar({children}) {
+import { doc, getDoc, getDocs } from "@firebase/firestore";
+import { onAuthStateChanged, signOut } from "@firebase/auth";
+import { auth, db } from "../../../firebase";
+import { useDispatch } from "react-redux";
+import { setUID, setUserRedux } from "@/lib/redux/features/admin";
+function NavBar({ children }) {
   const routes = [
     {
       name: "Dashboard",
@@ -149,7 +149,7 @@ function NavBar({children}) {
               );
             })}
           </div>
-          <div className=" flex flex-col gap-6 h-[30%] px-16 py-6 md:px-10 justify-end items-stretch text-white">
+          <div className="flex flex-col gap-6 h-[30%] px-16 py-6 md:px-10 justify-end items-stretch text-white">
             <div
               onClick={() => {
                 router.push("/admin/settings");
@@ -191,9 +191,13 @@ function NavBar({children}) {
               onClick={() => {
                 setToggle(!toggle);
               }}
-              className=" text-white"
+              className="flex flex-col gap-1"
             >
-              ---
+              <div className="w-5 h-5 flex flex-col gap-1 justify-center items-center">
+                <div className="w-5 h-[2px] bg-white"></div>
+                <div className="w-5 h-[2px] bg-white"></div>
+                <div className="w-5 h-[2px] bg-white"></div>
+              </div>
             </div>
           </div>
         </div>
