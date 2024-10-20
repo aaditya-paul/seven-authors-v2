@@ -33,7 +33,7 @@ function Page() {
               uid: user.user.uid,
               name: name,
               // TODO feature
-
+              admin: false,
               bookSeller: true,
             },
             {merge: true}
@@ -63,7 +63,7 @@ function Page() {
             uid: user.user.uid,
             name: user.user.displayName,
             // TODO feature
-
+            admin: false,
             pfp: user.user.photoURL,
             bookSeller: true,
           },
