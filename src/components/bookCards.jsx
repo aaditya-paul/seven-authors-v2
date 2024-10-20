@@ -2,9 +2,9 @@ import Link from "next/link";
 import React from "react";
 import BookImage from "./e-book-components/bookImage";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
-import BookGenre from "./bookGenre";
+import BookGenre from "./BookGenre";
 
-function BookCards({ books, type }) {
+function BookCards({books, type}) {
   return (
     <div className="flex md:w-full p-0 rounded-lg md:py-0 md:px-0 flex-col gap-3 py-4  w-full">
       <div className="grid grid-cols-2 md:grid-cols-6 gap-5 overflow-x-scroll w-full no-scrollbar">
@@ -30,7 +30,7 @@ function BookCards({ books, type }) {
                 <div className="relative w-full h-1 bg-gray-300 rounded-full">
                   <div
                     className="absolute h-full bg-red-600 rounded-full"
-                    style={{ width: `${book.progress ? book.progress : 0}%` }} // Assuming 'progress' is a percentage from 0 to 100
+                    style={{width: `${book.progress ? book.progress : 0}%`}} // Assuming 'progress' is a percentage from 0 to 100
                   />
                 </div>
               </div>
