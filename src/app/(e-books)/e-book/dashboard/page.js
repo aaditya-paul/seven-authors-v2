@@ -54,6 +54,7 @@ function Page() {
                   if (index < 2) {
                     return (
                       <Link
+                        key={index}
                         href={`/e-book/book-details/${book.slug}`}
                         className=" overflow-hidden group/carousel group-hover/carousel:cursor-pointer relative flex justify-center items-center self-center w-full h-72 rounded-xl "
                       >
