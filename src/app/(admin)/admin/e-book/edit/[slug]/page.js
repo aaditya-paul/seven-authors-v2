@@ -160,6 +160,10 @@ function Page() {
               <option value="">Select</option>
               <option value="Peace">Peace</option>
               <option value="Survival">Survival</option>
+              <option value="sci-fi">Sci-Fi</option>
+              <option value="horror">Horror</option>
+              <option value="romance">Romance</option>
+              {/* Add more genres as needed */}
             </select>
           </div>
           <div className=" flex gap-10 items-center justify-between outline-none">
