@@ -1,20 +1,22 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
 import Book from "/public/assets/e-bbok.js";
 import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
 import Image from "next/image";
-import {usePathname, useRouter} from "next/navigation";
+
+
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import {onAuthStateChanged, signOut} from "@firebase/auth";
-import {auth, db} from "../../../firebase";
-import {useDispatch, useSelector} from "react-redux";
-import {setUID, setUserRedux} from "@/lib/redux/features/admin";
-import {doc, getDoc} from "@firebase/firestore";
-function NavBar({children}) {
+import { onAuthStateChanged, signOut } from "@firebase/auth";
+import { auth, db } from "../../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setUID, setUserRedux } from "@/lib/redux/features/admin";
+import { doc, getDoc } from "@firebase/firestore";
+function NavBar({ children }) {
   const routes = [
     {
       name: "Dashboard",
@@ -186,7 +188,11 @@ function NavBar({children}) {
               }}
               className=" text-white"
             >
-              ---
+              <div className="w-5 h-5 flex flex-col gap-1 justify-center items-center">
+                <div className="w-5 h-[2px] bg-white"></div>
+                <div className="w-5 h-[2px] bg-white"></div>
+                <div className="w-5 h-[2px] bg-white"></div>
+              </div>
             </div>
           </div>
           <div className=" text-white text-xl flex justify-end  items-center h-full px-12">

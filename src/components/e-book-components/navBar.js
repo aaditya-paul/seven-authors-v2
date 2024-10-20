@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
 import Book from "/public/assets/e-bbok.js";
 import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
+import Search from "/public/assets/Search.js";
+import BookMarkLogo from "/public/assets/BookMark.js";
+
+import RedHomeLogo from "/public/assets/RedHomeLogo.js";
+
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -20,42 +26,49 @@ function NavBar({ children }) {
       name: "Dashboard",
       path: "/e-book/dashboard",
       icon: Home,
+      redIcon: RedHomeLogo,
       active: false,
     },
     {
       name: "E-book",
       path: "/e-book/e-book",
       icon: Book,
+      redIcon
       active: false,
     },
     {
       name: "Audio Book",
       path: "/e-book/audio-book",
       icon: Audio,
+      redIcon
       active: false,
     },
     {
       name: "Book Mark",
       path: "/e-book/book-mark",
-      icon: Person,
+      icon: BookMarkLogo,
+      redIcon
       active: true,
-    },
-    {
-      name: "Explore",
-      path: "/e-book/explore",
-      icon: Person,
-      active: false,
     },
     {
       name: "Profile",
       path: "/e-book/profile",
       icon: Person,
+      redIcon
+      active: false,
+    },
+    {
+      name: "Explore",
+      path: "/e-book/explore",
+      icon: Search,
+      redIcon
       active: false,
     },
     {
       name: "Parenter Plan",
       path: "/e-book/partner-plan",
       icon: Person,
+      redIcon
       active: false,
     },
   ];

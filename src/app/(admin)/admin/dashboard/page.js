@@ -5,12 +5,13 @@ import SALES from "/public/assets/icon/sales.svg";
 import MONEY from "/public/assets/icon/money.svg";
 import EBOOKRED from "/public/assets/icon/e-book-red.svg";
 
+import Graph from "@/components/graph";
+
 function Page() {
   return (
     <div class="flex bg-[#292929] text-white">
       <div class="flex flex-col w-full">
         {/* <!-- main content  --> */}
-
         <div class="flex p-[32px]  ">
           <div class="grid lg:grid-cols-2 grid-cols-1 w-full gap-[32px]">
             {/* <!-- sales data  --> */}
@@ -83,6 +84,7 @@ function Page() {
             </div>
           </div>
         </div>
+        <Graph /> {/*  //added */}
       </div>
     </div>
   );

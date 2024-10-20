@@ -4,6 +4,7 @@ import BOOK from "/public/assets/img/book-demo.svg";
 import SALES from "/public/assets/icon/sales.svg";
 import MONEY from "/public/assets/icon/money.svg";
 import EBOOKRED from "/public/assets/icon/e-book-red.svg";
+import Graph from "@/components/graph";
 
 function Page() {
   return (
@@ -83,6 +84,7 @@ function Page() {
             </div>
           </div>
         </div>
+        <Graph />
       </div>
     </div>
   );
