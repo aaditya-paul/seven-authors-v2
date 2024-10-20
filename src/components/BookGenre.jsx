@@ -1,7 +1,7 @@
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
-import React from "react";
+import React, {useState} from "react";
 
-const BookGenre = ({ genre }) => {
+const BookGenre = ({genre}) => {
   const [bgcolor, setBgColor] = useState("");
 
   //   if () {
