@@ -70,7 +70,7 @@ function NavBar({ children }) {
   }, [router, dispatch]);
 
   const isAdmin = useSelector((state) => state.AdminRedux.user.admin);
-  // console.log(isAdmin);
+  console.log(isAdmin);
 
   useEffect(() => {
     if (isAdmin === false) {

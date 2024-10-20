@@ -12,6 +12,7 @@ import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
 import Loader from "@/components/LoaderComponent/Loader";
+import BookGenre from "@/components/bookGenre";
 
 const Page = () => {
   const q = usePathname().slice(21);
@@ -30,7 +31,13 @@ const Page = () => {
         // increase the total sales of the book
         await setDoc(
           doc(db, "books", q),
-          { totalSales: increment(1) },
+          {
+            totalSales: increment(1),
+            boughtBy: arrayUnion({
+              uid: UID,
+              date: new Date().toISOString(),
+            }),
+          },
           { merge: true }
         );
         await setDoc(
@@ -71,7 +78,7 @@ const Page = () => {
   }
 
   return (
-    <div className="text-white w-full rounded-lg overflow-hidden px-40 p-10">
+    <div className="text-white w-full rounded-lg overflow-hidden  p-10">
       {/* Book Image */}
       <div className="flex flex-col md:flex-row w-full justify-center items-start md:items-start md:justify-evenly">
         <div className="w-fit gap-16">
@@ -96,14 +103,10 @@ const Page = () => {
           {/* Genre */}
           <div className="flex space-x-2 mb-2">
             {/* TODO CHANGE GENRE COLOR */}
-            <span className="px-2 py-1 bg-gray-700 text-xs rounded-md">
-              {capitalizeFirstLetter(book.genre)}
-            </span>
+            <BookGenre genre={book.genre} />
           </div>
 
-          <p className="text-gray-300 mb-4">
-            {book.totalSales} Copies Sold / {} 2000 Previews
-          </p>
+          <p className="text-gray-300 mb-4">{book.totalSales} Copies Sold</p>
 
           {/* Synopsis */}
           <div>

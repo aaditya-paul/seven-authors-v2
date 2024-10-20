@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {fetchBooks} from "@/utils/fetchBooks";
 import BookCards from "@/components/bookCards";
+import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
   const [books, setBooks] = useState([]);
@@ -100,7 +101,7 @@ function Page() {
         </div>
       ) : (
         <div className="text-white text-xl font-bold">
-          No books available. Loading...
+          <Loader height={70} />
         </div>
       )}
     </div>

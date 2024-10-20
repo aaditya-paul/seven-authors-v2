@@ -33,42 +33,36 @@ function NavBar({ children }) {
       name: "E-book",
       path: "/e-book/e-book",
       icon: Book,
-      redIcon
       active: false,
     },
     {
       name: "Audio Book",
       path: "/e-book/audio-book",
       icon: Audio,
-      redIcon
       active: false,
     },
     {
       name: "Book Mark",
       path: "/e-book/book-mark",
       icon: BookMarkLogo,
-      redIcon
       active: true,
     },
     {
       name: "Profile",
       path: "/e-book/profile",
       icon: Person,
-      redIcon
       active: false,
     },
     {
       name: "Explore",
       path: "/e-book/explore",
       icon: Search,
-      redIcon
       active: false,
     },
     {
       name: "Parenter Plan",
       path: "/e-book/partner-plan",
       icon: Person,
-      redIcon
       active: false,
     },
   ];
