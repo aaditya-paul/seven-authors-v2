@@ -71,34 +71,12 @@ const Page = () => {
   }
 
   return (
-    <div className="text-white w-full rounded-lg overflow-hidden p-6">
+    <div className="text-white w-full rounded-lg overflow-hidden px-40 p-10">
       {/* Book Image */}
       <div className="flex flex-col md:flex-row w-full justify-center items-start md:items-start md:justify-evenly">
         <div className="w-fit gap-16">
           <BookImage book={book} />
           {/* Buttons */}
-          <div className="mt-4 flex flex-col gap-4">
-            <Link
-              href={`/e-book/e-book/${q}`}
-              className="w-full text-center bg-transparent border border-red-500 text-red-500 py-2 px-4 rounded-md hover:bg-red-500 hover:text-white transition-colors"
-            >
-              {boughtBooks && boughtBooks.includes(q) ? "Read Book" : "Preview"}{" "}
-              {/* Change button text based on whether the book is bought or not */}
-              {/* Preview */}
-            </Link>
-            {
-              // Show buy button only if the book is not bought
-              boughtBooks && boughtBooks.includes(q) ? null : (
-                <button
-                  onClick={handleBuy}
-                  className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors"
-                  disabled={buying} // Disable button while buying
-                >
-                  {buying ? "Processing..." : "₹ " + book.price}{" "}
-                </button>
-              )
-            }
-          </div>
         </div>
 
         {/* Book Info */}
@@ -123,7 +101,9 @@ const Page = () => {
             </span>
           </div>
 
-          <p className="text-gray-300 mb-4">{book.totalSales} Copies Sold</p>
+          <p className="text-gray-300 mb-4">
+            {book.totalSales} Copies Sold / {} 2000 Previews
+          </p>
 
           {/* Synopsis */}
           <div>
@@ -141,6 +121,28 @@ const Page = () => {
             >
               {!more ? "Show more" : "Show less"}
             </button>
+          </div>
+          <div className="mt-4 flex flex-col gap-4 w-[50%]">
+            <Link
+              href={`/e-book/e-book/${q}`}
+              className="w-full text-center bg-transparent border border-red-500 text-red-500 py-2 px-4 rounded-md hover:bg-red-500 hover:text-white transition-colors"
+            >
+              {boughtBooks && boughtBooks.includes(q) ? "Read Book" : "Preview"}{" "}
+              {/* Change button text based on whether the book is bought or not */}
+              {/* Preview */}
+            </Link>
+            {
+              // Show buy button only if the book is not bought
+              boughtBooks && boughtBooks.includes(q) ? null : (
+                <button
+                  onClick={handleBuy}
+                  className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition-colors"
+                  disabled={buying} // Disable button while buying
+                >
+                  {buying ? "Processing..." : "₹ " + book.price}{" "}
+                </button>
+              )
+            }
           </div>
         </div>
       </div>

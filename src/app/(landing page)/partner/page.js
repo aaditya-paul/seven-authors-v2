@@ -3,8 +3,16 @@ import React from "react";
 import Logo from "/public/assets/img/logo-white.svg";
 import HeroImg from "/public/assets/img/become-a-partner.png";
 import Terms from "/public/assets/img/terms.png";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavBar from "@/components/navBar";
+
+//logo
+
+import eyeLogo from "@/../public/assets/icon/eye.svg";
+import videoLogo from "@/../public/assets/icon/video.svg";
+import dollarLogo from "@/../public/assets/icon/currency.svg";
+import security from "@/../public/assets/icon/secruity.svg";
+
 function Page() {
   return (
     <NavBar>
@@ -50,6 +58,7 @@ function Page() {
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div class="p-7 bg-zinc-800 rounded-[8px] shadow-lg shadow-gray-500/8">
                 {/* <i class="fa-regular fa-eye mb-5 text-2xl text-red-600 flex align-left"></i> */}
+                <Image src={eyeLogo} className="my-2" alt="" />
                 <h4 class="text-[16px] font-semibold text-left">
                   Increased Visibility
                 </h4>
@@ -60,6 +69,7 @@ function Page() {
 
               <div class="p-8 bg-zinc-800 rounded-[8px] shadow-lg shadow-gray-500/8">
                 {/* <i class="fa-solid fa-video text-2xl mb-5 text-emerald-400 flex align-left"></i> */}
+                <Image src={videoLogo} className="my-2" alt="" />
                 <h4 class="text-[16px] font-semibold text-left">
                   Brand Exposure
                 </h4>
@@ -69,6 +79,7 @@ function Page() {
               </div>
               <div class="p-8 bg-zinc-800 rounded-[8px] shadow-lg shadow-gray-500/8">
                 {/* <i class="fa-solid fa-dollar-sign text-2xl mb-5 text-amber-600 flex align-left"></i> */}
+                <Image src={dollarLogo} className="my-2" alt="" />
                 <h4 class="text-[16px] font-semibold text-left">
                   Revenue Generation
                 </h4>
@@ -80,6 +91,7 @@ function Page() {
                 {/* <i class="fa-solid fa-unlock-keyhole text-2xl mb-5 text-purple-800 flex align-left"></i>
             <FontAwesomeIcon 
              /> */}
+                <Image src={security} className="my-2" alt="" />
                 <h4 class="text-[16px] font-semibold text-left">
                   Trust and Credibility
                 </h4>

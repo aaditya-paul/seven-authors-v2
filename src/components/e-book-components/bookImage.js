@@ -15,7 +15,7 @@ const BookImage = ({ book, size }) => {
       }  `}
     >
       {/* Conditionally render the loader if the image has not loaded yet */}
-      {imageLoaded && <Loader height={50}/>}
+      {!imageLoaded && <Loader height={50} />}
 
       {/* Image element that triggers the loading completion handler */}
       <Image

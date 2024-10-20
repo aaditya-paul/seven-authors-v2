@@ -54,7 +54,7 @@ function NavBar({ children }) {
     },
     {
       name: "Parenter Plan",
-      path: "/e-book/parenter-plan",
+      path: "/e-book/partner-plan",
       icon: Person,
       active: false,
     },
