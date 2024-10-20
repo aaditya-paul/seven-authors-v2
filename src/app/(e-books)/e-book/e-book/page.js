@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {useRouter} from "next/navigation";
-import {fetchBooks} from "@/utils/fetchBooks";
+import { useRouter } from "next/navigation";
+import { fetchBooks } from "@/utils/fetchBooks";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
+import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
   const [books, setBooks] = useState([]);
@@ -79,7 +80,7 @@ function Page() {
               All E-books
             </h1>
             <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
-              <div className="grid grid-cols-2 md:grid-cols-6 overflow-x-scroll w-full no-scrollbar">
+              <div className="grid grid-cols-2 gap-10 md:grid-cols-6 overflow-x-scroll w-full no-scrollbar">
                 {filteredBooks.map((book, index) => (
                   <Link
                     href={{
@@ -104,9 +105,7 @@ function Page() {
           </div>
         </div>
       ) : (
-        <div className="text-white text-xl font-bold">
-          No books available. Loading...
-        </div>
+        <Loader height={"70"} />
       )}
     </div>
   );

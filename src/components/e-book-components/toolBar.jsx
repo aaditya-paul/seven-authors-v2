@@ -1,11 +1,11 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Arrow from "../../../public/assets/arrow.svg";
 import Image from "next/image";
-import {useDispatch, useSelector} from "react-redux";
-import {setFont, setFontSize, setMode} from "@/lib/redux/features/toolbar";
+import { useDispatch, useSelector } from "react-redux";
+import { setFont, setFontSize, setMode } from "@/lib/redux/features/toolbar";
 
-function ToolBar({currentPage, totalPages, goToPage}) {
+function ToolBar({ currentPage, totalPages, goToPage }) {
   const dispatch = useDispatch();
   const fontState = useSelector((state) => state.toolBar.font);
   var fontSize = useSelector((state) => state.toolBar.fontSize);
@@ -19,10 +19,10 @@ function ToolBar({currentPage, totalPages, goToPage}) {
   }, []);
 
   const fonts = [
-    {name: "Roboto", font: "font-roboto"},
-    {name: "Sometype", font: "font-sometype"},
-    {name: "Irish Grover", font: "font-irish"},
-    {name: "Inter", font: "font-inter"},
+    { name: "Roboto", font: "font-roboto" },
+    { name: "Sometype", font: "font-sometype" },
+    { name: "Irish Grover", font: "font-irish" },
+    { name: "Inter", font: "font-inter" },
   ];
 
   return (
@@ -37,7 +37,11 @@ function ToolBar({currentPage, totalPages, goToPage}) {
           onClick={() => setToggle(!toggle)}
           className="cursor-pointer absolute left-0 bg-navBarBGPrimary -translate-x-[1.85rem] translate-y-16 border-[3px] border-r-0 border-borderColor top-0 px-2 py-3 rounded-l-xl"
         >
-          <Image src={Arrow} alt="arrow" />
+          <Image
+            src={Arrow}
+            alt="arrow"
+            className={`${toggle && "rotate-180"} transition-all`}
+          />
         </div>
         <div className="flex flex-col gap-3">
           {/* Font Selection */}
@@ -68,7 +72,7 @@ function ToolBar({currentPage, totalPages, goToPage}) {
               >
                 +
               </div>
-              <div style={{fontSize: `${fontSize}px`}}>A</div>
+              <div style={{ fontSize: `${fontSize}px` }}>A</div>
               <div
                 onClick={() => dispatch(setFontSize((fontSize = fontSize - 4)))}
                 className="cursor-pointer"

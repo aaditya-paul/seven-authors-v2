@@ -1,15 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {usePathname} from "next/navigation";
-import {fetchBooks, fetchSingleBook} from "@/utils/fetchBooks";
-import {arrayUnion, doc, increment, setDoc} from "@firebase/firestore";
-import {db} from "../../../../../../firebase";
-import {useSelector} from "react-redux";
+import { usePathname } from "next/navigation";
+import { fetchBooks, fetchSingleBook } from "@/utils/fetchBooks";
+import { arrayUnion, doc, increment, setDoc } from "@firebase/firestore";
+import { db } from "../../../../../../firebase";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
+import Loader from "@/components/LoaderComponent/Loader";
 
 const Page = () => {
   const q = usePathname().slice(21);
@@ -28,13 +29,13 @@ const Page = () => {
         // increase the total sales of the book
         await setDoc(
           doc(db, "books", q),
-          {totalSales: increment(1)},
-          {merge: true}
+          { totalSales: increment(1) },
+          { merge: true }
         );
         await setDoc(
           doc(db, "users", UID),
-          {booksBought: arrayUnion(q)},
-          {merge: true}
+          { booksBought: arrayUnion(q) },
+          { merge: true }
         );
         alert("Book bought successfully");
         window.location.reload();
@@ -57,11 +58,15 @@ const Page = () => {
   }, [q]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!book) {
-    return <div>Book not found</div>;
+    return (
+      <div className="w-full lg:h-[90vh] text-white text-2xl font-bold text-center my-10">
+        Book not found
+      </div>
+    );
   }
 
   return (
