@@ -121,7 +121,7 @@ function Page() {
       </div>
     );
   } else {
-    return <Loader />;
+    return <Loader height={70} />;
   }
 }
 

@@ -67,10 +67,8 @@ function NavBar({children}) {
     });
   }, [router, dispatch]);
 
-  const isBookSeller = useSelector(
-    (state) => state.AdminRedux.user.isBookSeller
-  );
-  // console.log(isAdmin);
+  const isBookSeller = useSelector((state) => state.AdminRedux.user.bookSeller);
+  console.log(isBookSeller);
 
   useEffect(() => {
     if (isBookSeller === false) {

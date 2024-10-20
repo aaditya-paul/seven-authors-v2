@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import { usePathname } from "next/navigation";
-import { fetchBooks, fetchSingleBook } from "@/utils/fetchBooks";
-import { arrayUnion, doc, increment, setDoc } from "@firebase/firestore";
-import { db } from "../../../../../../firebase";
-import { useSelector } from "react-redux";
+import {usePathname} from "next/navigation";
+import {fetchBooks, fetchSingleBook} from "@/utils/fetchBooks";
+import {arrayUnion, doc, increment, setDoc} from "@firebase/firestore";
+import {db} from "../../../../../../firebase";
+import {useSelector} from "react-redux";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
@@ -30,13 +30,19 @@ const Page = () => {
         // increase the total sales of the book
         await setDoc(
           doc(db, "books", q),
-          { totalSales: increment(1) },
-          { merge: true }
+          {
+            totalSales: increment(1),
+            boughtBy: arrayUnion({
+              uid: UID,
+              date: new Date().toISOString(),
+            }),
+          },
+          {merge: true}
         );
         await setDoc(
           doc(db, "users", UID),
-          { booksBought: arrayUnion(q) },
-          { merge: true }
+          {booksBought: arrayUnion(q)},
+          {merge: true}
         );
         alert("Book bought successfully");
         window.location.reload();
@@ -71,7 +77,7 @@ const Page = () => {
   }
 
   return (
-    <div className="text-white w-full rounded-lg overflow-hidden px-40 p-10">
+    <div className="text-white w-full rounded-lg overflow-hidden  p-10">
       {/* Book Image */}
       <div className="flex flex-col md:flex-row w-full justify-center items-start md:items-start md:justify-evenly">
         <div className="w-fit gap-16">
@@ -101,9 +107,7 @@ const Page = () => {
             </span>
           </div>
 
-          <p className="text-gray-300 mb-4">
-            {book.totalSales} Copies Sold / {} 2000 Previews
-          </p>
+          <p className="text-gray-300 mb-4">{book.totalSales} Copies Sold</p>
 
           {/* Synopsis */}
           <div>

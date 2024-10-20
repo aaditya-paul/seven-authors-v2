@@ -1,20 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
 import Book from "/public/assets/e-bbok.js";
 import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
-import { doc, getDoc, getDocs } from "@firebase/firestore";
-import { onAuthStateChanged, signOut } from "@firebase/auth";
-import { auth, db } from "../../../firebase";
-import { useDispatch } from "react-redux";
-import { setUID, setUserRedux } from "@/lib/redux/features/admin";
-function NavBar({ children }) {
+import {doc, getDoc, getDocs} from "@firebase/firestore";
+import {onAuthStateChanged, signOut} from "@firebase/auth";
+import {auth, db} from "../../../firebase";
+import {useDispatch, useSelector} from "react-redux";
+import {setUID, setUserRedux} from "@/lib/redux/features/admin";
+import Loader from "../LoaderComponent/Loader";
+function NavBar({children}) {
   const routes = [
     {
       name: "Dashboard",
@@ -53,7 +54,7 @@ function NavBar({ children }) {
       active: false,
     },
     {
-      name: "Parenter Plan",
+      name: "Partner Plan",
       path: "/e-book/partner-plan",
       icon: Person,
       active: false,
@@ -61,10 +62,16 @@ function NavBar({ children }) {
   ];
 
   const [toggle, setToggle] = useState(false);
+  const [name, setName] = useState("");
 
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.AdminRedux.user);
+
+  useEffect(() => {
+    setName(user.name);
+  }, [user]);
 
   useEffect(() => {
     setToggle(false);
@@ -199,6 +206,9 @@ function NavBar({ children }) {
                 <div className="w-5 h-[2px] bg-white"></div>
               </div>
             </div>
+          </div>
+          <div className=" text-white text-xl font-sometype flex justify-end  items-center h-full px-12">
+            {name ? "Hi, " + name : "..."}
           </div>
         </div>
         <div className="  absolute left-0 md:left-[18vw] bg-bgColor w-[100vw] md:w-[82vw] md:h-[91vh] h-[100vh]">

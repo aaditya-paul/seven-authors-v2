@@ -3,7 +3,7 @@ import React from "react";
 import Logo from "/public/assets/img/logo-white.svg";
 import HeroImg from "/public/assets/img/become-a-partner.png";
 import Terms from "/public/assets/img/terms.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import NavBar from "@/components/navBar";
 
 //logo
@@ -27,7 +27,7 @@ function Page() {
               Maximize Your Earning Potential and Reach a Wider Audience
             </h2>
             <a
-              href="#"
+              href="/sign-up/seller"
               class="bg-gray-800 text-white py-2 px-4 rounded-[8px] transition-all hover:bg-red-700 w-fit "
             >
               Become a Partner Now!
