@@ -45,8 +45,8 @@ function Page() {
           <div className="w-fit md:p-5 flex items-center justify-center self-center ">
             <div className="flex justify-center py-[24px] flex-col items-center md:gap-[32px] px-[10px] md:px-[0]">
               {/* Best Seller Section */}
-              <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
-                <p className="text-white md:text-[32px] font-bold text-[24px]">
+              <div className=" no-scrollbar bg-[#393737] px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
+                <p className="text-white no-scrollbar md:text-[32px] font-bold text-[24px]">
                   Best Seller
                 </p>
 
@@ -61,8 +61,8 @@ function Page() {
               </div>
 
               {/* Newly Released Section */}
-              <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-5">
-                <p className="text-white md:text-[32px] font-bold text-[24px]">
+              <div className="bg-[#393737] no-scrollbar px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-5">
+                <p className="text-white md:text-[32px] no-scrollbar font-bold text-[24px]">
                   Newly Released
                 </p>
 

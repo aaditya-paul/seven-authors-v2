@@ -9,13 +9,12 @@ import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
 import BookCards from "@/components/bookCards";
 import Loader from "@/components/LoaderComponent/Loader";
-import {useSelector} from "react-redux"; // Import useSelector to access Redux state
 
 function Page() {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState(""); // Sorting state
-  const user = useSelector((state) => state.AdminRedux.user); // Accessing user data
+  const router = useRouter();
 
   // Fetching books data
   useEffect(() => {
@@ -23,21 +22,14 @@ function Page() {
       try {
         const data = await fetchBooks();
         console.log(data);
-
-        // Filter books to include only those bought by the user
-        const booksBoughtIds = user.booksBought || []; // Get the booksBought array from user
-        const userBooks = data.filter(
-          (book) => booksBoughtIds.includes(book.id) // Check if book.id is in booksBought
-        );
-
-        setBooks(userBooks);
+        setBooks(data);
       } catch (error) {
         console.error("Failed to fetch books:", error);
       }
     };
 
     getBooks();
-  }, [user]); // Add user as a dependency to re-fetch when user changes
+  }, []);
 
   // Filtered Books based on Search Term
   const filteredBooks = books
@@ -71,7 +63,7 @@ function Page() {
         {/* Sorting Dropdown */}
         <select
           onChange={(e) => setSortOption(e.target.value)}
-          className="ml-4 md:w-fit px-2 py-4 w-[100px] outline-none bg-bgColor text-white p-2 md:p-4 mx:p-4 border border-gray-400 rounded-md"
+          className="ml-4 md:w-fit px-2 py-4 w-[100px] outline-none bg-bgColor text-white p-2 md:p-4 mx:p-4 border border-gray-400 rounded-md    "
         >
           <option value="">Sort by</option>
           <option value="alphabetical-asc">Alphabetical A-Z</option>
@@ -82,10 +74,10 @@ function Page() {
       </div>
 
       {books.length > 0 ? (
-        <div className="my-9 mx-12 w-fit">
+        <div className=" my-9 mx-12 w-fit">
           {/* Recommended Section */}
-          <div className="flex flex-col">
-            <h1 className="text-white text-2xl font-bold">Your E-books</h1>
+          <div className=" flex flex-col ">
+            <h1 className="text-white text-2xl font-bold">All E-books</h1>
             <BookCards books={filteredBooks} />
           </div>
         </div>
