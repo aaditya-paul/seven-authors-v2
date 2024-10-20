@@ -4,6 +4,7 @@ import {getDoc} from "@firebase/firestore";
 import {onAuthStateChanged} from "@firebase/auth";
 import {auth} from "../../firebase";
 import Providers from "@/lib/redux/provider";
+import BlockCopyPaste from "@/utils/blockCopyPaste";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +28,9 @@ export default function RootLayout({children}) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <BlockCopyPaste>
+          <Providers>{children}</Providers>
+        </BlockCopyPaste>
       </body>
     </html>
   );
