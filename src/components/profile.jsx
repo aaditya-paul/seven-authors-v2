@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Loader from "./LoaderComponent/Loader";
 
 const ProfileComponent = () => {
@@ -13,11 +13,11 @@ const ProfileComponent = () => {
         <div className="lg:m-2 w-full p-5">
           <h1 className="text-2xl font-bold lg:mx-12 text-white">Profile</h1>
         </div>
-        <div className="lg:w-[90%] w-full min-h-[70vh] flex flex-col lg:flex-row gap-7 lg:mx-20 m-5 p-5">
+        <div className="lg:w-[90%] w-full min-h-[70vh] flex flex-col lg:flex-row gap-7 lg:mx-20 px-4">
           <div className="flex lg:w-[50%] h-max rounded-3xl flex-col gap-2 bg-[#4e4e4e]">
             <div className="photos h-[190px] ">
               <div className="coverPhoto relative w-full h-36 bg-[url('../../public/assets/heroHome.png')] rounded-t-3xl"></div>
-              <div className="absolute w-fit h-24 flex justify-center items-center top-[220px] ml-7">
+              <div className="absolute w-fit h-24 flex justify-center items-center lg:top-[180px] top-[160px] ml-7">
                 <Image
                   src={
                     user.pfp ||

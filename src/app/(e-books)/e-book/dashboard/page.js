@@ -1,9 +1,9 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {fetchBooks} from "@/utils/fetchBooks";
+import { fetchBooks } from "@/utils/fetchBooks";
 import BookImage from "@/components/e-book-components/bookImage";
 import Link from "next/link";
 import BookCards from "@/components/bookCards";
@@ -115,6 +115,8 @@ function Page() {
                 See more
               </Link>
               {/* </div> */}
+              <div>
+              </div>
             </div>
           </div>
         </div>
