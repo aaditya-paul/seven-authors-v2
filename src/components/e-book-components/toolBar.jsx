@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Arrow from "../../../public/assets/arrow.svg";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { setFont, setFontSize, setMode } from "@/lib/redux/features/toolbar";
+import {useDispatch, useSelector} from "react-redux";
+import {setFont, setFontSize, setMode} from "@/lib/redux/features/toolbar";
 
-function ToolBar({ currentPage, totalPages, goToPage }) {
+function ToolBar({currentPage, totalPages, goToPage}) {
   const dispatch = useDispatch();
   const fontState = useSelector((state) => state.toolBar.font);
   var fontSize = useSelector((state) => state.toolBar.fontSize);
@@ -19,10 +19,10 @@ function ToolBar({ currentPage, totalPages, goToPage }) {
   }, []);
 
   const fonts = [
-    { name: "Roboto", font: "font-roboto" },
-    { name: "Sometype", font: "font-sometype" },
-    { name: "Irish Grover", font: "font-irish" },
-    { name: "Inter", font: "font-inter" },
+    {name: "Roboto", font: "font-roboto"},
+    {name: "Sometype", font: "font-sometype"},
+    {name: "Irish Grover", font: "font-irish"},
+    {name: "Inter", font: "font-inter"},
   ];
 
   return (
@@ -72,7 +72,7 @@ function ToolBar({ currentPage, totalPages, goToPage }) {
               >
                 +
               </div>
-              <div style={{ fontSize: `${fontSize}px` }}>A</div>
+              <div style={{fontSize: `${fontSize}px`}}>A</div>
               <div
                 onClick={() => dispatch(setFontSize((fontSize = fontSize - 4)))}
                 className="cursor-pointer"
@@ -96,7 +96,7 @@ function ToolBar({ currentPage, totalPages, goToPage }) {
                   
                   ${
                     theme === "night"
-                      ? " bg-[#FAE6B5]"
+                      ? " bg-[#E9EAD6]"
                       : theme === "light"
                       ? " bg-[#ffffff]"
                       : " bg-[#292929]"
