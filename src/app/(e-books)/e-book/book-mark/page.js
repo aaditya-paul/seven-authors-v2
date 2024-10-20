@@ -1,171 +1,108 @@
 "use client";
 
-import Image from "next/image";
-import React from "react";
-import BOOK from "/public/assets/img/book-demo.svg";
-import {useRouter} from "next/navigation";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {fetchBooks} from "@/utils/fetchBooks";
+import BookCards from "@/components/bookCards";
 
 function Page() {
-  const books = [
-    {
-      name: "The Book Name",
-      genre: "Sci-fi",
-      image: BOOK,
-    },
-    {
-      name: "The Book Name",
-      genre: "Sci-fi",
-      image: BOOK,
-    },
-    {
-      name: "The Book Name",
-      genre: "Sci-fi",
-      image: BOOK,
-    },
-    {
-      name: "The Book Name",
-      genre: "Sci-fi",
-      image: BOOK,
-    },
-  ];
+  const [books, setBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  const user = useSelector((state) => state.AdminRedux.user); // Accessing user data
 
-  const router = useRouter();
+  // Fetching books data
+  useEffect(() => {
+    const getBooks = async () => {
+      try {
+        const data = await fetchBooks();
+        console.log(data);
+
+        // Set only books that are bookmarked by the user
+        const bookmarkedBooks = user.bookMark || [];
+        const userBooks = data.filter((book) =>
+          bookmarkedBooks.some((bookmark) => bookmark.bookId === book.id)
+        );
+
+        // Reverse the array to show the last read book on top
+        console.log("User Books:", userBooks.reverse());
+
+        setBooks(await userBooks.reverse());
+      } catch (error) {
+        console.error("Failed to fetch books:", error);
+      }
+    };
+
+    getBooks();
+  }, [user]); // Add user as a dependency to re-fetch when user changes
+
+  // Filtered Books based on Search Term
+  const filteredBooks = books
+    .filter((book) =>
+      book.title?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === "alphabetical-asc") {
+        return a.title.localeCompare(b.title);
+      } else if (sortOption === "alphabetical-desc") {
+        return b.title.localeCompare(a.title);
+      } else if (sortOption === "newest") {
+        return new Date(b.creationDate) - new Date(a.creationDate);
+      } else if (sortOption === "oldest") {
+        return new Date(a.creationDate) - new Date(b.creationDate);
+      }
+      return 0;
+    });
+
+  // Calculate progress for each book
+  const booksWithProgress = filteredBooks.map((book) => {
+    const bookmark = user.bookMark.find(
+      (bookmark) => bookmark.bookId === book.id
+    );
+    const progress = bookmark ? (bookmark.page / bookmark.totalPages) * 100 : 0; // If no bookmark, progress is 0%
+
+    return {
+      ...book,
+      progress: Math.round(progress), // Add progress to book object, rounded to nearest integer
+    };
+  });
 
   return (
     <div>
-      {/* search bar */}
-      <div className=" mx-5 md:mx-12 my-5">
+      {/* Search Bar */}
+      <div className="mx-5 md:mx-12 my-5 flex flex-row md:flex-row">
         <input
           type="text"
-          placeholder=" Search Books"
-          className=" bg-transparent outline-none text-white border-gray-400 border rounded-md md:w-[40%] w-fit p-2 md:p-4  mx:p-4"
+          placeholder="Search Books"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="bg-transparent outline-none text-white border-gray-400 border rounded-md md:w-[40%] w-fit p-2 md:p-4 mx:p-4"
         />
-        <button className="ml-4 bg-transparent outline-none text-white px-3 p-2 md:px-8 md:p-4 border border-gray-400 rounded-md">
-          Filter
-        </button>
+        {/* Sorting Dropdown */}
+        <select
+          onChange={(e) => setSortOption(e.target.value)}
+          className="ml-4 md:w-fit px-2 py-4 w-[100px] outline-none bg-bgColor text-white p-2 md:p-4 mx:p-4 border border-gray-400 rounded-md"
+        >
+          <option value="">Sort by</option>
+          <option value="alphabetical-asc">Alphabetical A-Z</option>
+          <option value="alphabetical-desc">Alphabetical Z-A</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+        </select>
       </div>
-      <div className=" flex flex-col md:gap-12 md:my-12 gap-5 my-12">
-        {/* Recommended  */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Recommended For You
-          </h1>
-          <div class="flex md:w-fit p-[16px] rounded-[16px] md:py-[0px] md:px-[64px] flex-col gap-[12px] py-[16px] px-[24px] w-full">
-            <div class="grid grid-cols-2 md:grid-cols-6 md:gap-[32px] overflow-x-scroll w-full no-scrollbar ">
-              {books.map((book, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      router.push("/e-book/book-mark/slug");
-                    }}
-                    class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
-                  >
-                    <div className="">
-                      <div>
-                        <Image
-                          src={BOOK}
-                          alt=""
-                          class="max-w-[120px] h-[180px] rounded-lg shadow "
-                        ></Image>
-                      </div>
-                    </div>
-                    <p class="text-white text-xs font-normal">The Book Name</p>
-                    <div class="flex">
-                      <p class="bg-[#7F237F] py-[4px] px-[8px] text-white rounded-full text-xs">
-                        Sci-fi
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <a class="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
+
+      {booksWithProgress.length > 0 ? (
+        <div className="my-9 mx-12 w-fit">
+          {/* Recommended Section */}
+          <div className="flex flex-col">
+            <h1 className="text-white text-2xl font-bold">Your Bookmarks</h1>
+            <BookCards type="progress" books={booksWithProgress} />
           </div>
         </div>
-        {/* Best Seller  */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Best Seller
-          </h1>
-          <div class="flex md:w-fit p-[16px] rounded-[16px] md:py-[0px] md:px-[64px] flex-col gap-[12px] py-[16px] px-[24px] w-full">
-            <div class="grid grid-cols-2 md:grid-cols-6 md:gap-[32px] overflow-x-scroll w-full no-scrollbar ">
-              {books.map((book, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      router.push("/e-book/book-mark/slug");
-                    }}
-                    class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
-                  >
-                    <div className="">
-                      <div>
-                        <Image
-                          src={BOOK}
-                          alt=""
-                          class="max-w-[120px] h-[180px] rounded-lg shadow "
-                        ></Image>
-                      </div>
-                    </div>
-                    <p class="text-white text-xs font-normal">The Book Name</p>
-                    <div class="flex">
-                      <p class="bg-[#7F237F] py-[4px] px-[8px] text-white rounded-full text-xs">
-                        Sci-fi
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <a class="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
-          </div>
+      ) : (
+        <div className="text-white text-xl font-bold">
+          No books available. Loading...
         </div>
-        {/* Newly Launched  */}
-        <div>
-          <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-            Newly Launched
-          </h1>
-          <div class="flex md:w-fit p-[16px] rounded-[16px] md:py-[0px] md:px-[64px] flex-col gap-[12px] py-[16px] px-[24px] w-full">
-            <div class="grid grid-cols-2 md:grid-cols-6 md:gap-[32px] overflow-x-scroll w-full no-scrollbar ">
-              {books.map((book, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      router.push("/e-book/book-mark/slug");
-                    }}
-                    class="flex cursor-pointer flex-col gap-[12px] sm:w-full md:w-full my-3 md:my-5"
-                  >
-                    <div className="">
-                      <div>
-                        <Image
-                          src={BOOK}
-                          alt=""
-                          class="max-w-[120px] h-[180px] rounded-lg shadow "
-                        ></Image>
-                      </div>
-                    </div>
-                    <p class="text-white text-xs font-normal">The Book Name</p>
-                    <div class="flex">
-                      <p class="bg-[#7F237F] py-[4px] px-[8px] text-white rounded-full text-xs">
-                        Sci-fi
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <a class="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer">
-              See more
-            </a>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

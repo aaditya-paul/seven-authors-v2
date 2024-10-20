@@ -99,7 +99,7 @@ export default function Page({
         ) : (
           <div
             ref={contentRef}
-            className={`prose max-w-full  h-[75vh] overflow-y-auto ${fontFamily}`}
+            className={`prose max-w-full font-[${fontColor}] h-[75vh] overflow-y-auto ${fontFamily}`}
           >
             <div
               dangerouslySetInnerHTML={{__html: wordContent}}
@@ -108,7 +108,7 @@ export default function Page({
                 fontSize: fontSize, // dynamic font size
                 color: fontColor, // dynamic font color
               }}
-              className="p-4 rounded-md custom-content"
+              className="  p-4 rounded-md custom-content"
             />
           </div>
         )}
