@@ -43,6 +43,16 @@ function Page() {
       <div className="bg-[url('/assets/img/bg.png')] bg-no-repeat bg-cover flex justify-center">
         <div className="w-fit md:p-5 flex items-center justify-center self-center ">
           <div className="flex justify-center py-[24px] flex-col items-center md:gap-[32px] px-[10px] md:px-[0]">
+            {/* Carousel */}
+            <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-6 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
+              <p className="text-white md:text-[32px] font-bold text-[24px]  md:py-2">
+                Top Seller
+              </p>
+
+              <BookCards books={bestSellers} />
+
+              {/* </div> */}
+            </div>
             {/* Best Seller Section */}
             <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-6 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
               <p className="text-white md:text-[32px] font-bold text-[24px]  md:py-2">
