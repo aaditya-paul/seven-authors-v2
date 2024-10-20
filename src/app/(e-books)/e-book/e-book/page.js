@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { fetchBooks } from "@/utils/fetchBooks";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
+import BookCards from "@/components/bookCards";
 import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
@@ -73,35 +74,11 @@ function Page() {
       </div>
 
       {books.length > 0 ? (
-        <div className="flex flex-col md:gap-12 md:my-12 gap-5 my-12">
+        <div className=" my-9 mx-12 w-fit">
           {/* Recommended Section */}
-          <div>
-            <h1 className="text-white text-2xl mx-5 md:mx-12 font-bold">
-              All E-books
-            </h1>
-            <div className="flex md:w-fit p-4 rounded-lg md:py-0 md:px-16 flex-col gap-3 py-4 px-6 w-full">
-              <div className="grid grid-cols-2 gap-10 md:grid-cols-6 overflow-x-scroll w-full no-scrollbar">
-                {filteredBooks.map((book, index) => (
-                  <Link
-                    href={{
-                      pathname: `/e-book/book-details/${book.slug}`,
-                    }}
-                    key={index}
-                    className="flex cursor-pointer flex-col justify-between gap-3 sm:w-full md:w-full my-3 md:my-5"
-                  >
-                    <BookImage size="sm" book={book} />
-                    <p className="text-white text-sm font-medium font-roboto">
-                      {book.title}
-                    </p>
-                    <div className="flex">
-                      <p className="bg-[#7F237F] py-1 px-2 text-white rounded-full text-xs">
-                        {book.genre}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <div className=" flex flex-col ">
+            <h1 className="text-white text-2xl font-bold">All E-books</h1>
+            <BookCards books={filteredBooks} />
           </div>
         </div>
       ) : (

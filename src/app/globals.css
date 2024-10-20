@@ -4,6 +4,31 @@
 
 @import "./theme.css";
 
+.custom-content ol,
+.custom-content ul {
+  list-style-position: inside;
+  /* Ensures bullet/numbering is inside the box */
+  padding-left: 20px;
+  /* Adds some padding to the list */
+  color: inherit;
+}
+
+.prose ol::marker,
+.prose ul::marker {
+  color: inherit;
+}
+
+.custom-content li::marker {
+  color: inherit;
+  /* Inherit the color from the parent */
+}
+
+.custom-content li {
+  margin-bottom: 8px;
+  color: inherit;
+  /* Adds space between list items */
+}
+
 .custom-content h1,
 .custom-content h2,
 .custom-content h3,

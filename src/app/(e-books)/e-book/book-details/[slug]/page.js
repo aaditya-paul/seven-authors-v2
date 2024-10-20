@@ -10,6 +10,7 @@ import { db } from "../../../../../../firebase";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
+import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
 import Loader from "@/components/LoaderComponent/Loader";
 
 const Page = () => {
@@ -116,8 +117,9 @@ const Page = () => {
 
           {/* Genre */}
           <div className="flex space-x-2 mb-2">
+            {/* TODO CHANGE GENRE COLOR */}
             <span className="px-2 py-1 bg-gray-700 text-xs rounded-md">
-              {book.genre}
+              {capitalizeFirstLetter(book.genre)}
             </span>
           </div>
 

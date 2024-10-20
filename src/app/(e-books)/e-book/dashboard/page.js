@@ -6,6 +6,7 @@ import BOOK from "/public/assets/img/book-demo.svg";
 import { fetchBooks } from "@/utils/fetchBooks";
 import BookImage from "@/components/e-book-components/bookImage";
 import Link from "next/link";
+import BookCards from "@/components/bookCards";
 import Loader from "@/components/LoaderComponent/Loader";
 
 function Page() {
@@ -36,11 +37,6 @@ function Page() {
 
     getBooks();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(bestSellers, newlyReleased);
-  // }, [bestSellers, newlyReleased]);
-
   if (bestSellers.length > 0 && newlyReleased.length > 0) {
     console.log(bestSellers, newlyReleased);
 
@@ -49,34 +45,12 @@ function Page() {
         <div className="w-fit md:p-5 flex items-center justify-center self-center ">
           <div className="flex justify-center py-[24px] flex-col items-center md:gap-[32px] px-[10px] md:px-[0]">
             {/* Best Seller Section */}
-            <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
-              <p className="text-white md:text-[32px] font-bold text-[24px]">
+            <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-6 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-0 mb-5">
+              <p className="text-white md:text-[32px] font-bold text-[24px]  md:py-2">
                 Best Seller
               </p>
 
-              <div className="flex md:w-full p-4 rounded-lg md:py-0  flex-col gap-3 py-4 px-6 w-full">
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-5 overflow-x-scroll w-full no-scrollbar ">
-                  {bestSellers.map((book, index) => (
-                    <Link
-                      href={`/e-book/book-details/${book.id}`}
-                      key={index}
-                      className="flex flex-col gap-[12px] sm:w-full md:w-fit my-5 justify-between"
-                    >
-                      <div>
-                        <BookImage size="sm" book={book} />
-                      </div>
-                      <p className="text-white text-sm font-medium max-w-[120px] ">
-                        {book.title}
-                      </p>
-                      <div className="flex">
-                        <p className="bg-[#7F237F] py-[4px] px-[8px] text-white rounded-full text-xs">
-                          {book.genre}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              <BookCards books={bestSellers} />
               <Link
                 href={"/e-book/e-book"}
                 className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer"
@@ -87,34 +61,12 @@ function Page() {
             </div>
 
             {/* Newly Released Section */}
-            <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-16 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-5">
-              <p className="text-white md:text-[32px] font-bold text-[24px]">
+            <div className="bg-[#393737] px-6 md:px-12 py-4 md:py-6 w-full rounded-[16px] text-white text-2xl mx-5 md:mx-12 font-bold md:mb-5">
+              <p className="text-white md:text-[32px] font-bold text-[24px] md:py-2">
                 Newly Released
               </p>
 
-              <div className="flex md:w-full p-4 rounded-lg md:py-0  flex-col gap-3 py-4 px-6 w-full">
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-5 overflow-x-scroll w-full no-scrollbar">
-                  {newlyReleased.map((book, index) => (
-                    <Link
-                      href={`/e-book/book-details/${book.id}`}
-                      key={index}
-                      className="flex flex-col gap-[12px] sm:w-full md:w-fit my-5 justify-between"
-                    >
-                      <div>
-                        <BookImage size="sm" book={book} />
-                      </div>
-                      <p className="text-white text-sm font-medium max-w-[120px] ">
-                        {book.title}
-                      </p>
-                      <div className="flex">
-                        <p className="bg-[#7F237F] py-[4px] px-[8px] text-white rounded-full text-xs">
-                          {book.genre}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              <BookCards books={newlyReleased} />
               <Link
                 href={"/e-book/e-book"}
                 className="text-[#e12f3b] text-base font-medium hover:text-red-400 cursor-pointer"
