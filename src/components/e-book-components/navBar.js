@@ -1,26 +1,32 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
 import Book from "/public/assets/e-bbok.js";
 import Person from "/public/assets/person.js";
 import Audio from "/public/assets/audio.js";
+import Search from "/public/assets/Search.js";
+import BookMarkLogo from "/public/assets/BookMark.js";
+
+import RedHomeLogo from "/public/assets/RedHomeLogo.js";
+
 import Image from "next/image";
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import {doc, getDoc, getDocs} from "@firebase/firestore";
-import {onAuthStateChanged, signOut} from "@firebase/auth";
-import {auth, db} from "../../../firebase";
-import {useDispatch, useSelector} from "react-redux";
-import {setUID, setUserRedux} from "@/lib/redux/features/admin";
-import Loader from "../LoaderComponent/Loader";
-function NavBar({children}) {
+import { doc, getDoc, getDocs } from "@firebase/firestore";
+import { onAuthStateChanged, signOut } from "@firebase/auth";
+import { auth, db } from "../../../firebase";
+import { useDispatch } from "react-redux";
+import { setUID, setUserRedux } from "@/lib/redux/features/admin";
+function NavBar({ children }) {
   const routes = [
     {
       name: "Dashboard",
       path: "/e-book/dashboard",
       icon: Home,
+      redIcon: RedHomeLogo,
       active: false,
     },
     {
@@ -38,14 +44,8 @@ function NavBar({children}) {
     {
       name: "Book Mark",
       path: "/e-book/book-mark",
-      icon: Person,
+      icon: BookMarkLogo,
       active: true,
-    },
-    {
-      name: "Explore",
-      path: "/e-book/explore",
-      icon: Person,
-      active: false,
     },
     {
       name: "Profile",
@@ -54,7 +54,13 @@ function NavBar({children}) {
       active: false,
     },
     {
-      name: "Partner Plan",
+      name: "Explore",
+      path: "/e-book/explore",
+      icon: Search,
+      active: false,
+    },
+    {
+      name: "Parenter Plan",
       path: "/e-book/partner-plan",
       icon: Person,
       active: false,
@@ -62,16 +68,10 @@ function NavBar({children}) {
   ];
 
   const [toggle, setToggle] = useState(false);
-  const [name, setName] = useState("");
 
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.AdminRedux.user);
-
-  useEffect(() => {
-    setName(user.name);
-  }, [user]);
 
   useEffect(() => {
     setToggle(false);
@@ -206,9 +206,6 @@ function NavBar({children}) {
                 <div className="w-5 h-[2px] bg-white"></div>
               </div>
             </div>
-          </div>
-          <div className=" text-white text-xl font-sometype flex justify-end  items-center h-full px-12">
-            {name ? "Hi, " + name : "..."}
           </div>
         </div>
         <div className="  absolute left-0 md:left-[18vw] bg-bgColor w-[100vw] md:w-[82vw] md:h-[91vh] h-[100vh]">

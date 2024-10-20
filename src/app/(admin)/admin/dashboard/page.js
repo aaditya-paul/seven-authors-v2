@@ -8,6 +8,8 @@ import MONEY from "/public/assets/icon/money.svg";
 import EBOOKRED from "/public/assets/icon/e-book-red.svg";
 import {fetchBooks} from "@/utils/fetchBooks";
 
+import Graph from "@/components/graph";
+
 function Page() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -131,6 +133,7 @@ function Page() {
             </div>
           </div>
         </div>
+        <Graph /> {/*  //added */}
       </div>
     </div>
   );

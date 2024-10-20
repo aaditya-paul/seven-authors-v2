@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
 import {
   Card,
   CardContent,
@@ -38,7 +39,7 @@ const salesData = [
   { month: "Dec", sales: 10000 },
 ];
 
-export default function Component() {
+export default function Graph() {
   return (
     <Card className="w-full max-w-3xl">
       <CardHeader>
@@ -53,9 +54,9 @@ export default function Component() {
               color: "hsl(var(--chart-1))",
             },
           }}
-          className="h-[400px]"
+          className="h-[400px] w-full"
         >
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="200%" height="100%">
             <LineChart
               data={salesData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

@@ -1,17 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BOOK from "/public/assets/img/book-demo.svg";
-import {usePathname} from "next/navigation";
-import {fetchBooks, fetchSingleBook} from "@/utils/fetchBooks";
-import {arrayUnion, doc, increment, setDoc} from "@firebase/firestore";
-import {db} from "../../../../../../firebase";
-import {useSelector} from "react-redux";
+import { usePathname } from "next/navigation";
+import { fetchBooks, fetchSingleBook } from "@/utils/fetchBooks";
+import { arrayUnion, doc, increment, setDoc } from "@firebase/firestore";
+import { db } from "../../../../../../firebase";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import BookImage from "@/components/e-book-components/bookImage";
 import capitalizeFirstLetter from "@/utils/capitalizeFirstLetter";
 import Loader from "@/components/LoaderComponent/Loader";
+import BookGenre from "@/components/bookGenre";
 
 const Page = () => {
   const q = usePathname().slice(21);
@@ -37,12 +38,12 @@ const Page = () => {
               date: new Date().toISOString(),
             }),
           },
-          {merge: true}
+          { merge: true }
         );
         await setDoc(
           doc(db, "users", UID),
-          {booksBought: arrayUnion(q)},
-          {merge: true}
+          { booksBought: arrayUnion(q) },
+          { merge: true }
         );
         alert("Book bought successfully");
         window.location.reload();
@@ -102,9 +103,7 @@ const Page = () => {
           {/* Genre */}
           <div className="flex space-x-2 mb-2">
             {/* TODO CHANGE GENRE COLOR */}
-            <span className="px-2 py-1 bg-gray-700 text-xs rounded-md">
-              {capitalizeFirstLetter(book.genre)}
-            </span>
+            <BookGenre genre={book.genre} />
           </div>
 
           <p className="text-gray-300 mb-4">{book.totalSales} Copies Sold</p>
