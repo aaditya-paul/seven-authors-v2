@@ -9,7 +9,7 @@ import wavyBg from "/public/assets/wavybg.svg";
 import BookSLider from "@/components/BookSLider";
 import Faq from "@/components/FaqQuestions";
 import FaqQuestions from "@/components/FaqQuestions";
-import {faQ} from "@fortawesome/free-solid-svg-icons";
+import { faQ } from "@fortawesome/free-solid-svg-icons";
 import Footer from "@/components/footer";
 
 function Page() {
@@ -43,9 +43,9 @@ function Page() {
   return (
     <NavBar>
       <div className=" overflow-hidden bg-no-repeat">
-        <div className=" w-full h-[100vh] bg-red-300 bg-[url('../../public/assets/heroHome.png')] bg-center bg-no-repeat bg-cover">
-          <div className=" flex  h-full ">
-            <div className="w-fit h-fit  md:w-[30vw]  lg:flex justify-between m-5 mt-[90%] lg:mt-48 lg:mx-40 lg:px-10 px-5  lg:py-12 py-5   flex flex-col gap-4 p-8 md:p-16 bg-[#292929] rounded-lg text-white italic">
+        <div className=" w-full h-[100vh] bg-red-300 bg-[url('../../public/assets/heroHome.png')] bg-center bg-no-repeat bg-cover   flex  justify-center items-center">
+          <div className=" flex  h-full md:w-[120ch] justify-start items-center px-[24px] md:px-[0px]">
+            <div className="w-fit h-fit md:w-[30vw]    lg:flex justify-between  lg:px-10 px-5  lg:py-12 py-5   flex flex-col gap-4 p-8 md:p-16 bg-[#292929] rounded-lg text-white ">
               <p className=" text-2xl">
                 Immerse <span className=" text-red-500"> Yourself </span> in
                 <span className=" text-red-500"> Endless </span>
@@ -74,7 +74,7 @@ function Page() {
         </div>
         <div className="bg-[#222222]">
           <div className="bg-wavyBG  p-3  bg-repeat text-white flex flex-col justify-center items-center">
-            <div className="bg-[#222222] w-[80%] lg:flex justify-between lg:mx-40 mt-10 lg:px-10 px-5  gap-10 lg:py-5 py-5  rounded-lg">
+            <div className="bg-[#222222] md:w-[120ch] lg:flex justify-between lg:mx-40 mt-10 lg:px-10 px-5  justi lg:py-5 py-5  rounded-lg">
               <BookSLider />
             </div>
             <div className="bg-[#222222] mx-40 mt-10 px-10 py-5 rounded-lg w-[80%]">
