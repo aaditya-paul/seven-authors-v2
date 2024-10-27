@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import Logo from "/public/assets/logo.svg";
 import Home from "/public/assets/home.js";
@@ -14,14 +14,14 @@ import logoutlogo from "/public/assets/icon/logout.png";
 import RedHomeLogo from "/public/assets/RedHomeLogo.js";
 
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
-import { doc, getDoc, getDocs } from "@firebase/firestore";
-import { onAuthStateChanged, signOut } from "@firebase/auth";
-import { auth, db } from "../../../firebase";
-import { useDispatch } from "react-redux";
-import { setUID, setUserRedux } from "@/lib/redux/features/admin";
-function NavBar({ children }) {
+import {doc, getDoc, getDocs} from "@firebase/firestore";
+import {onAuthStateChanged, signOut} from "@firebase/auth";
+import {auth, db} from "../../../firebase";
+import {useDispatch} from "react-redux";
+import {setUID, setUserRedux} from "@/lib/redux/features/admin";
+function NavBar({children}) {
   const routes = [
     {
       name: "Dashboard",
@@ -100,7 +100,7 @@ function NavBar({ children }) {
 
   return (
     <>
-      <div className="">
+      <div className=" z-[100]">
         {/* sideBar */}
         <div
           className={`fixed flex flex-col w-[100vw] ${
@@ -167,7 +167,13 @@ function NavBar({ children }) {
               className="flex items-center cursor-pointer gap-5 "
             >
               <div className=" text-red-300 ">
-                <Image src={logoutlogo} alt="" width={20} height={20} className="invert"/>
+                <Image
+                  src={logoutlogo}
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="invert"
+                />
               </div>
               <div className={`text-white`}>LogOut</div>
             </div>
