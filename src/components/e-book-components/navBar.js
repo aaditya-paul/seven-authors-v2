@@ -100,10 +100,10 @@ function NavBar({children}) {
 
   return (
     <>
-      <div className=" z-[100]">
+      <div className=" ">
         {/* sideBar */}
         <div
-          className={`fixed flex flex-col w-[100vw] ${
+          className={`fixed z-[100]   flex flex-col w-[100vw] ${
             !toggle ? " -translate-x-full" : "translate-x-0"
           } md:translate-x-0 md:w-[18vw] h-[100vh] bg-navBarBGPrimary border-r border-white z-20 ease-linear transition-all  `}
         >

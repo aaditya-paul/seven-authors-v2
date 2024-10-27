@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import BOOK from "/public/assets/img/book-demo.svg";
-import { fetchBooks } from "@/utils/fetchBooks";
+import {fetchBooks} from "@/utils/fetchBooks";
 import BookImage from "@/components/e-book-components/bookImage";
 import Link from "next/link";
 import BookCards from "@/components/bookCards";
@@ -58,7 +58,7 @@ function Page() {
                         href={`/e-book/book-details/${book.slug}`}
                         className=" overflow-hidden group/carousel group-hover/carousel:cursor-pointer relative flex justify-center items-center self-center w-full h-72 rounded-xl "
                       >
-                        <div className=" absolute flex  text-lg  items-end p-[16px]  bg-black/50 top-0 left-0 z-40 w-full h-full">
+                        <div className=" absolute flex  text-lg  items-end p-[16px]  bg-black/50 top-0 left-0 z-20 w-full h-full">
                           <div>
                             <div>Name : {book.title}</div>
                             <div className=" line-clamp-3 text-sm">
@@ -115,8 +115,7 @@ function Page() {
                 See more
               </Link>
               {/* </div> */}
-              <div>
-              </div>
+              <div></div>
             </div>
           </div>
         </div>
