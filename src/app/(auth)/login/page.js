@@ -20,11 +20,12 @@ function Page() {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         router.push(`/auth-redirect?uid=${user.uid}`);
       }
     });
+    return unsubscribe;
   }, [router]);
 
   const handleForgotPassword = () => {
@@ -44,11 +45,11 @@ function Page() {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log("User Logged in");
-          router.push(`/auth-redirect?uid=${auth.currentUser.uid}`);
         })
         .catch((error) => {
           alert(error.message);
         });
+      router.push(`/auth-redirect?uid=${auth.currentUser.uid}`);
     }
   };
 
