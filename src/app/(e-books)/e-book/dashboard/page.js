@@ -56,21 +56,24 @@ function Page() {
                       <Link
                         key={index}
                         href={`/e-book/book-details/${book.slug}`}
-                        className=" overflow-hidden group/carousel group-hover/carousel:cursor-pointer relative flex justify-center items-center self-center w-full h-72 rounded-xl "
+                        // Hide the second item on small screens and show both items on medium and larger screens
+                        className={`overflow-hidden group/carousel group-hover/carousel:cursor-pointer relative flex justify-center items-center self-center w-full h-72 rounded-xl ${
+                          index === 1 ? "hidden md:flex" : ""
+                        }`}
                       >
-                        <div className=" absolute flex  text-lg  items-end p-[16px]  bg-black/50 top-0 left-0 z-20 w-full h-full">
+                        <div className="absolute flex text-lg items-end p-[16px] bg-black/50 top-0 left-0 z-20 w-full h-full">
                           <div>
                             <div>Name : {book.title}</div>
-                            <div className=" line-clamp-3 text-sm">
+                            <div className="line-clamp-3 text-sm">
                               Description : {book.description}
                             </div>
-                            <div className=" text-red-700 text-sm">
+                            <div className="text-red-700 text-sm">
                               Read More
                             </div>
                           </div>
                         </div>
                         <Image
-                          className="  group-hover/carousel:scale-110 transition-all ease-linear object-cover rounded-md z-10"
+                          className="group-hover/carousel:scale-110 transition-all ease-linear object-cover rounded-md z-10"
                           fill
                           src={book.coverImage || BOOK}
                           alt="book"
