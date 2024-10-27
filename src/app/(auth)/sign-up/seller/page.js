@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect} from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Link from "next/link";
 import {
