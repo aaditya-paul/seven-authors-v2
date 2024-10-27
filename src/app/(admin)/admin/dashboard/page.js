@@ -134,6 +134,35 @@ function Page() {
           </div>
         </div>
         <Graph /> {/*  //added */}
+        {/* <div className="flex flex-col gap-[24px]">
+          <p className="text-[16px] font-medium">Bought Books</p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse border border-gray-600">
+              <thead>
+                <tr>
+                  <th className="border border-gray-600 p-4">Book ID</th>
+                  <th className="border border-gray-600 p-4">Book Title</th>
+                  <th className="border border-gray-600 p-4">User ID</th>
+                  <th className="border border-gray-600 p-4">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {boughtBooks.map((book, index) => (
+                  <tr key={index} className="hover:bg-gray-700">
+                    <td className="border border-gray-600 p-4">
+                      {book.bookId}
+                    </td>
+                    <td className="border border-gray-600 p-4">{book.title}</td>
+                    <td className="border border-gray-600 p-4">{book.uid}</td>
+                    <td className="border border-gray-600 p-4">
+                      {new Date(book.date).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div> */}
       </div>
     </div>
   );

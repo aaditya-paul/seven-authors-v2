@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithPopup,
 } from "@firebase/auth";
 
@@ -18,6 +19,14 @@ function Page() {
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push(`/auth-redirect?uid=${user.uid}`);
+      }
+    });
+  }, [router]);
 
   const HandleClick = () => {
     if (email === "" || password === "" || name === "") {

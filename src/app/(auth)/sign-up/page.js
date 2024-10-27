@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect} from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Link from "next/link";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithPopup,
 } from "@firebase/auth";
 import {auth, db} from "../../../../firebase";
@@ -17,6 +18,14 @@ function Page() {
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push(`/auth-redirect?uid=${user.uid}`);
+      }
+    });
+  }, [router]);
 
   const HandleClick = () => {
     if (email === "" || password === "" || name === "") {

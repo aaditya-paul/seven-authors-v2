@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import Logo from "/public/assets/img/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import {
   GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "@firebase/auth";
@@ -16,6 +18,25 @@ function Page() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push(`/auth-redirect?uid=${user.uid}`);
+      }
+    });
+  }, [router]);
+
+  const handleForgotPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Password reset email sent");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   const HandleClick = () => {
     if (email === "" || password === "") {
       alert("Please enter email and password");
@@ -77,7 +98,14 @@ function Page() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <p class="tag mt-2">Forgot password ?</p>
+            <p
+              onClick={() => {
+                handleForgotPassword();
+              }}
+              class="tag mt-2 cursor-pointer hover:underline"
+            >
+              Forgot password ?
+            </p>
             <div class="flex flex-col gap-5 w-full">
               <button
                 onClick={HandleClick}
